@@ -1,0 +1,4 @@
+/* Blog Page Styles */
+.blog {
+  padding: var(--spacing-2xl) 0;
+}
