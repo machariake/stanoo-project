@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/server/node_modules
 
 # testing
 /coverage
@@ -18,6 +19,42 @@
 .env.test.local
 .env.production.local
 
+# Backend environment files
+/server/.env
+
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Temporary folders
+tmp/
+temp/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
