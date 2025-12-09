@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import SEO from '../common/SEO';
+import config from '../../config';
 import './About.css';
 
 const About = () => {
+  const [team, setTeam] = useState([]);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const response = await axios.get(`${config.API_URL}/team`);
+        const sorted = response.data.team.sort((a, b) => a.order - b.order);
+        setTeam(sorted);
+      } catch (err) {
+        console.error('Error fetching team:', err);
+      }
+    };
+    fetchTeam();
+  }, []);
+
   return (
     <div className="about">
+      <SEO
+        title="About Us"
+        description="Learn about Theuri Green Health Safe, our mission, vision, values, and the expert team dedicated to your safety."
+      />
       {/* Hero Section */}
       <section className="about-hero section">
         <div className="container">
@@ -66,11 +88,11 @@ const About = () => {
               <div className="story-content">
                 <h2>Our Story</h2>
                 <p>Founded in 2008, Theuri Green Health Safe emerged from a simple yet powerful vision: to create safer workplaces and protect our environment for future generations. What started as a small consultancy firm has grown into a leading provider of comprehensive health, safety, and environmental management services.</p>
-                
+
                 <p>Over the years, we have built our reputation on delivering exceptional results, maintaining the highest professional standards, and fostering long-term partnerships with our clients. Our team of certified experts brings together decades of combined experience in various industries, from manufacturing and construction to healthcare and education.</p>
-                
+
                 <p>Today, we serve clients across East Africa, helping organizations navigate complex regulatory requirements, implement effective safety programs, and achieve their sustainability goals. Our commitment to continuous improvement and innovation ensures that we remain at the forefront of industry best practices.</p>
-                
+
                 <div className="story-highlights">
                   <div className="highlight">
                     <h4>15+ Years</h4>
@@ -107,70 +129,39 @@ const About = () => {
             <p>Experienced professionals dedicated to your safety and environmental success</p>
           </div>
           <div className="team-grid">
-            <div className="team-member">
-              <div className="member-image">
-                <div className="member-placeholder">
-                  <i className="fas fa-user"></i>
+            {team.length > 0 ? (
+              team.map(member => (
+                <div className="team-member" key={member._id}>
+                  <div className="member-image">
+                    {member.imageUrl ? (
+                      <img
+                        src={member.imageUrl}
+                        alt={member.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                    ) : (
+                      <div className="member-placeholder">
+                        <i className="fas fa-user"></i>
+                      </div>
+                    )}
+                  </div>
+                  <div className="member-info">
+                    <h4>{member.name}</h4>
+                    <span>{member.role}</span>
+                    <p>{member.bio}</p>
+                    {member.credentials && member.credentials.length > 0 && (
+                      <div className="member-credentials">
+                        {member.credentials.map((cred, idx) => (
+                          <span key={idx}>{cred}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className="member-info">
-                <h4>John Theuri</h4>
-                <span>Chief Executive Officer</span>
-                <p>With over 20 years of experience in environmental management, John leads our strategic vision and ensures the highest quality of service delivery.</p>
-                <div className="member-credentials">
-                  <span>MSc Environmental Management</span>
-                  <span>Certified HSE Professional</span>
-                </div>
-              </div>
-            </div>
-            <div className="team-member">
-              <div className="member-image">
-                <div className="member-placeholder">
-                  <i className="fas fa-user"></i>
-                </div>
-              </div>
-              <div className="member-info">
-                <h4>Dr. Sarah Mwangi</h4>
-                <span>Head of Health & Safety</span>
-                <p>Dr. Mwangi brings extensive expertise in occupational health and safety, leading our audit and compliance services with exceptional attention to detail.</p>
-                <div className="member-credentials">
-                  <span>PhD Occupational Health</span>
-                  <span>NEBOSH Certified</span>
-                </div>
-              </div>
-            </div>
-            <div className="team-member">
-              <div className="member-image">
-                <div className="member-placeholder">
-                  <i className="fas fa-user"></i>
-                </div>
-              </div>
-              <div className="member-info">
-                <h4>Michael Kamau</h4>
-                <span>Environmental Specialist</span>
-                <p>Michael specializes in environmental impact assessments and sustainability consulting, helping clients achieve their environmental goals.</p>
-                <div className="member-credentials">
-                  <span>BSc Environmental Science</span>
-                  <span>EIA Lead Expert</span>
-                </div>
-              </div>
-            </div>
-            <div className="team-member">
-              <div className="member-image">
-                <div className="member-placeholder">
-                  <i className="fas fa-user"></i>
-                </div>
-              </div>
-              <div className="member-info">
-                <h4>Grace Wanjiku</h4>
-                <span>Training & Development Manager</span>
-                <p>Grace designs and delivers comprehensive training programs that build safety culture and enhance organizational capabilities.</p>
-                <div className="member-credentials">
-                  <span>MSc Training & Development</span>
-                  <span>Certified Trainer</span>
-                </div>
-              </div>
-            </div>
+              ))
+            ) : (
+              <div className="text-center" style={{ width: '100%', padding: '20px' }}>Loading Team Members...</div>
+            )}
           </div>
         </div>
       </section>

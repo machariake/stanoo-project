@@ -22,6 +22,9 @@
 # Backend environment files
 /server/.env
 
+# Sensitive Keys
+/server/service-account-key.json
+
 # logs
 npm-debug.log*
 yarn-debug.log*

@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import SEO from '../common/SEO';
+import config from '../../config';
+import { useToast } from '../../context/ToastContext';
 import './Contact.css';
 
 const Contact = () => {
@@ -11,7 +15,31 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
+  const [settings, setSettings] = useState({
+    email: 'info@theurigreenhealthsafe.com',
+    phone: '+254 700 000 000',
+    address: 'Westlands, Nairobi, Kenya',
+    whatsappNumber: '254700000000'
+  });
+
+  const { addToast } = useToast();
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await axios.get(`${config.API_URL}/settings`);
+        if (response.data.settings && Object.keys(response.data.settings).length > 0) {
+          setSettings(prev => ({
+            ...prev,
+            ...response.data.settings
+          }));
+        }
+      } catch (err) {
+        console.error('Error fetching settings:', err);
+      }
+    };
+    fetchSettings();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -20,13 +48,41 @@ const Contact = () => {
     });
   };
 
+  const validateForm = () => {
+    if (formData.name.trim().length < 3) {
+      addToast('Please enter your full name (at least 3 characters).', 'warning');
+      return false;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      addToast('Please enter a valid email address.', 'warning');
+      return false;
+    }
+
+    if (formData.phone && formData.phone.length < 10) {
+      addToast('Please enter a valid phone number.', 'warning');
+      return false;
+    }
+
+    if (formData.message.trim().length < 10) {
+      addToast('Please enter a more detailed message (at least 10 characters).', 'warning');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
+
     setIsSubmitting(true);
-    setSubmitStatus(null);
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const response = await fetch(`${config.API_URL}/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +93,7 @@ const Contact = () => {
       const result = await response.json();
 
       if (result.success) {
-        setSubmitStatus('success');
+        addToast('Message sent successfully! We will get back to you soon.', 'success');
         setFormData({
           name: '',
           email: '',
@@ -47,11 +103,11 @@ const Contact = () => {
           message: ''
         });
       } else {
-        setSubmitStatus('error');
+        addToast('Failed to send message: ' + (result.message || 'Unknown error'), 'error');
       }
     } catch (error) {
       console.error('Contact form error:', error);
-      setSubmitStatus('error');
+      addToast('Network error. Please try again later.', 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -59,6 +115,10 @@ const Contact = () => {
 
   return (
     <div className="contact">
+      <SEO
+        title="Contact Us"
+        description="Get in touch with Theuri Green Health Safe for expert consultation on health, safety, and environmental management solutions."
+      />
       {/* Hero Section */}
       <section className="contact-hero section">
         <div className="container">
@@ -78,7 +138,7 @@ const Contact = () => {
               <div className="contact-form-container">
                 <h2>Send Us a Message</h2>
                 <p>Fill out the form below and we'll get back to you within 24 hours</p>
-                
+
                 <form className="contact-form" onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col-2">
@@ -172,22 +232,8 @@ const Contact = () => {
                     ></textarea>
                   </div>
 
-                  {submitStatus === 'success' && (
-                    <div className="alert alert-success">
-                      <i className="fas fa-check-circle"></i>
-                      Thank you for your message! We'll get back to you soon.
-                    </div>
-                  )}
-
-                  {submitStatus === 'error' && (
-                    <div className="alert alert-error">
-                      <i className="fas fa-exclamation-circle"></i>
-                      Sorry, there was an error sending your message. Please try again.
-                    </div>
-                  )}
-
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className="btn btn-primary btn-lg"
                     disabled={isSubmitting}
                   >
@@ -220,7 +266,7 @@ const Contact = () => {
                     </div>
                     <div className="method-content">
                       <h4>Our Location</h4>
-                      <p>123 Green Street<br />Nairobi, Kenya<br />P.O. Box 12345</p>
+                      <p style={{ whiteSpace: 'pre-line' }}>{settings.address.split(',').join('\n')}</p>
                     </div>
                   </div>
 
@@ -231,8 +277,8 @@ const Contact = () => {
                     <div className="method-content">
                       <h4>Phone Numbers</h4>
                       <p>
-                        <a href="tel:+254700000000">+254 700 000 000</a><br />
-                        <a href="tel:+254711000000">+254 711 000 000</a>
+                        <a href={`tel:${settings.phone.replace(/\s+/g, '')}`}>{settings.phone}</a><br />
+                        {settings.whatsappNumber && <a href={`https://wa.me/${settings.whatsappNumber}`}>WhatsApp Support</a>}
                       </p>
                     </div>
                   </div>
@@ -244,8 +290,7 @@ const Contact = () => {
                     <div className="method-content">
                       <h4>Email Address</h4>
                       <p>
-                        <a href="mailto:info@theurigreenhealthsafe.com">info@theurigreenhealthsafe.com</a><br />
-                        <a href="mailto:consultation@theurigreenhealthsafe.com">consultation@theurigreenhealthsafe.com</a>
+                        <a href={`mailto:${settings.email}`}>{settings.email}</a><br />
                       </p>
                     </div>
                   </div>
@@ -268,7 +313,7 @@ const Contact = () => {
                 <div className="emergency-contact">
                   <h3><i className="fas fa-exclamation-triangle"></i> Emergency Services</h3>
                   <p>For urgent safety or environmental incidents:</p>
-                  <a href="tel:+254722000000" className="emergency-number">+254 722 000 000</a>
+                  <a href={`tel:${settings.phone.replace(/\s+/g, '')}`} className="emergency-number">{settings.phone}</a>
                   <span className="emergency-note">Available 24/7</span>
                 </div>
               </div>
@@ -287,13 +332,13 @@ const Contact = () => {
               <div className="map-content">
                 <i className="fas fa-map-marked-alt"></i>
                 <h3>Our Office Location</h3>
-                <p>123 Green Street, Nairobi, Kenya</p>
+                <p>{settings.address}</p>
                 <p className="map-note">
                   Interactive map will be integrated here with Google Maps API
                 </p>
-                <a 
-                  href="https://maps.google.com/?q=Nairobi,Kenya" 
-                  target="_blank" 
+                <a
+                  href={`https://maps.google.com/?q=${encodeURIComponent(settings.address)}`}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-outline"
                 >

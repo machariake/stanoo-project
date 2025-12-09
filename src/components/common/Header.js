@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import Logo from './Logo';
 import './Header.css';
 
 const Header = () => {
@@ -25,13 +26,7 @@ const Header = () => {
           {/* Logo */}
           <div className="logo">
             <Link to="/" onClick={closeMenu}>
-              <div className="logo-icon">
-                <i className="fas fa-leaf"></i>
-              </div>
-              <div className="logo-text">
-                <span className="logo-main">Theuri Green</span>
-                <span className="logo-sub">Health Safe</span>
-              </div>
+              <Logo width={40} height={40} />
             </Link>
           </div>
 
@@ -39,8 +34,8 @@ const Header = () => {
           <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
             <ul className="nav-list">
               <li className="nav-item">
-                <Link 
-                  to="/" 
+                <Link
+                  to="/"
                   className={`nav-link ${isActive('/')}`}
                   onClick={closeMenu}
                 >
@@ -48,8 +43,8 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link 
-                  to="/about" 
+                <Link
+                  to="/about"
                   className={`nav-link ${isActive('/about')}`}
                   onClick={closeMenu}
                 >
@@ -57,8 +52,8 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link 
-                  to="/services" 
+                <Link
+                  to="/services"
                   className={`nav-link ${isActive('/services')}`}
                   onClick={closeMenu}
                 >
@@ -66,8 +61,8 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link 
-                  to="/blog" 
+                <Link
+                  to="/blog"
                   className={`nav-link ${isActive('/blog')}`}
                   onClick={closeMenu}
                 >
@@ -75,8 +70,8 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link 
-                  to="/contact" 
+                <Link
+                  to="/contact"
                   className={`nav-link ${isActive('/contact')}`}
                   onClick={closeMenu}
                 >
@@ -84,8 +79,8 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item nav-cta">
-                <Link 
-                  to="/contact" 
+                <Link
+                  to="/contact"
                   className="btn btn-primary"
                   onClick={closeMenu}
                 >
@@ -96,7 +91,7 @@ const Header = () => {
           </nav>
 
           {/* Mobile menu toggle */}
-          <button 
+          <button
             className="menu-toggle"
             onClick={toggleMenu}
             aria-label="Toggle navigation menu"

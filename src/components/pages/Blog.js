@@ -1,77 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import SEO from '../common/SEO';
+import SocialShare from '../common/SocialShare';
+import config from '../../config';
 import './Blog.css';
 
 const Blog = () => {
-  // Sample blog posts data
-  const featuredPost = {
-    id: 1,
-    title: "The Future of Workplace Safety: Embracing Technology and Innovation",
-    excerpt: "Explore how emerging technologies like IoT sensors, AI-powered risk assessment, and wearable devices are revolutionizing workplace safety management and creating safer environments for workers.",
-    author: "Dr. Sarah Mwangi",
-    date: "January 15, 2025",
-    category: "Safety Technology",
-    readTime: "8 min read",
-    image: "featured-post"
-  };
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const blogPosts = [
-    {
-      id: 2,
-      title: "Environmental Impact Assessment: A Complete Guide for East African Businesses",
-      excerpt: "Understanding the EIA process, regulatory requirements, and best practices for businesses operating in East Africa's diverse environmental landscape.",
-      author: "Michael Kamau",
-      date: "January 10, 2025",
-      category: "Environmental Management",
-      readTime: "6 min read",
-      image: "eia-guide"
-    },
-    {
-      id: 3,
-      title: "Building a Culture of Safety: Leadership's Role in HSE Success",
-      excerpt: "How organizational leaders can foster a positive safety culture, engage employees, and drive continuous improvement in health and safety performance.",
-      author: "Grace Wanjiku",
-      date: "January 5, 2025",
-      category: "Safety Culture",
-      readTime: "5 min read",
-      image: "safety-culture"
-    },
-    {
-      id: 4,
-      title: "Risk Management in the Digital Age: New Challenges and Solutions",
-      excerpt: "Addressing emerging risks in our interconnected world, from cybersecurity threats to supply chain vulnerabilities, and developing robust mitigation strategies.",
-      author: "John Theuri",
-      date: "December 28, 2024",
-      category: "Risk Management",
-      readTime: "7 min read",
-      image: "digital-risk"
-    },
-    {
-      id: 5,
-      title: "Sustainable Manufacturing: Balancing Productivity and Environmental Responsibility",
-      excerpt: "Strategies for manufacturing companies to reduce their environmental footprint while maintaining operational efficiency and competitiveness.",
-      author: "Dr. Sarah Mwangi",
-      date: "December 20, 2024",
-      category: "Sustainability",
-      readTime: "6 min read",
-      image: "sustainable-manufacturing"
-    },
-    {
-      id: 6,
-      title: "Emergency Preparedness in the Workplace: Essential Steps for Every Organization",
-      excerpt: "A comprehensive guide to developing, implementing, and maintaining effective emergency response plans that protect employees and business continuity.",
-      author: "Michael Kamau",
-      date: "December 15, 2024",
-      category: "Emergency Management",
-      readTime: "8 min read",
-      image: "emergency-preparedness"
-    }
-  ];
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(`${config.API_URL}/blog/posts`);
+        const data = await response.json();
+        if (data.success) {
+          setBlogPosts(data.posts);
+        } else {
+          setError('Failed to fetch posts');
+        }
+      } catch (err) {
+        setError('Error connecting to server');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  // State for filters
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All Categories');
+
+  // Filter posts based on search and category
+  const filteredPosts = blogPosts.filter(post => {
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === 'All Categories' || post.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  // Pagination Logic (Simplified for filtered results)
+  // For true pagination with search, you'd typically slice the filteredPosts array.
+  // const displayedPosts = filteredPosts.slice(0, 10); 
+
+  // Use the latest post as featured if available (only from filtered list if we want it dynamic, 
+  // or purely from original list. Usually featured is static unless searched).
+  // Let's keep featured as the absolute latest, but hide it when searching.
+  const featuredPost = blogPosts.length > 0 ? blogPosts[0] : null;
 
   const categories = [
     "All Categories",
     "Safety Technology",
-    "Environmental Management", 
+    "Environmental Management",
     "Safety Culture",
     "Risk Management",
     "Sustainability",
@@ -80,8 +65,15 @@ const Blog = () => {
     "Training"
   ];
 
+  if (loading) return <div className="loading-container">Loading posts...</div>;
+  // if (error) return <div className="error-container">{error}</div>; // Optional: show error state
+
   return (
     <div className="blog">
+      <SEO
+        title="Blog & News"
+        description="Stay informed with the latest insights, trends, and best practices in health, safety, and environmental management."
+      />
       {/* Hero Section */}
       <section className="blog-hero section">
         <div className="container">
@@ -92,50 +84,66 @@ const Blog = () => {
         </div>
       </section>
 
-      {/* Featured Post */}
-      <section className="featured-post section">
-        <div className="container">
-          <div className="featured-container">
-            <div className="featured-image">
-              <div className="featured-image-placeholder">
-                <i className="fas fa-microchip"></i>
-                <span>Featured Article</span>
+      {/* Featured Post (Only show if no search/filter is active) */}
+      {featuredPost && searchQuery === '' && selectedCategory === 'All Categories' && (
+        <section className="featured-post section">
+          <div className="container">
+            <div className="featured-container">
+              <div className="featured-image">
+                {featuredPost.imageUrl ? (
+                  <img src={featuredPost.imageUrl} alt={featuredPost.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <div className="featured-image-placeholder">
+                    <i className="fas fa-microchip"></i>
+                    <span>Featured Article</span>
+                  </div>
+                )}
               </div>
-            </div>
-            <div className="featured-content">
-              <div className="post-meta">
-                <span className="post-category">{featuredPost.category}</span>
-                <span className="post-date">{featuredPost.date}</span>
-                <span className="read-time">
-                  <i className="fas fa-clock"></i> {featuredPost.readTime}
-                </span>
-              </div>
-              <h2>{featuredPost.title}</h2>
-              <p>{featuredPost.excerpt}</p>
-              <div className="post-author">
-                <div className="author-avatar">
-                  <i className="fas fa-user"></i>
+              <div className="featured-content">
+                <div className="post-meta">
+                  <span className="post-category">{featuredPost.category}</span>
+                  <span className="post-date">{new Date(featuredPost.date).toLocaleDateString()}</span>
+                  <span className="read-time">
+                    <i className="fas fa-clock"></i> {featuredPost.readTime}
+                  </span>
                 </div>
-                <span>By {featuredPost.author}</span>
+                <h2>{featuredPost.title}</h2>
+                <p>{featuredPost.excerpt}</p>
+                <div className="post-author">
+                  <div className="author-avatar">
+                    <i className="fas fa-user"></i>
+                  </div>
+                  <span>By {featuredPost.author}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
+                  <Link to={`/blog/${featuredPost._id}`} className="btn btn-primary" style={{ margin: 0 }}>
+                    Read Full Article
+                  </Link>
+                  <SocialShare
+                    title={featuredPost.title}
+                    url={`${window.location.origin}/blog/${featuredPost._id}`}
+                  />
+                </div>
               </div>
-              <Link to={`/blog/${featuredPost.id}`} className="btn btn-primary">
-                Read Full Article
-              </Link>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Blog Posts */}
       <section className="blog-posts section section-alt">
         <div className="container">
           <div className="blog-header">
-            <h2>Latest Articles</h2>
+            <h2>{searchQuery || selectedCategory !== 'All Categories' ? 'Search Results' : 'Latest Articles'}</h2>
             <div className="blog-filters">
               <div className="categories-filter">
-                <select className="category-select">
+                <select
+                  className="category-select"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
                   {categories.map((category, index) => (
-                    <option key={index} value={category.toLowerCase().replace(/\s+/g, '-')}>
+                    <option key={index} value={category}>
                       {category}
                     </option>
                   ))}
@@ -146,6 +154,8 @@ const Blog = () => {
                   type="text"
                   placeholder="Search articles..."
                   className="search-input"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <i className="fas fa-search"></i>
               </div>
@@ -153,37 +163,53 @@ const Blog = () => {
           </div>
 
           <div className="posts-grid">
-            {blogPosts.map(post => (
-              <article key={post.id} className="post-card">
-                <div className="post-image">
-                  <div className="post-image-placeholder">
-                    <i className="fas fa-newspaper"></i>
-                  </div>
-                  <div className="post-category-badge">{post.category}</div>
-                </div>
-                <div className="post-content">
-                  <div className="post-meta">
-                    <span className="post-date">{post.date}</span>
-                    <span className="read-time">
-                      <i className="fas fa-clock"></i> {post.readTime}
-                    </span>
-                  </div>
-                  <h3>{post.title}</h3>
-                  <p>{post.excerpt}</p>
-                  <div className="post-footer">
-                    <div className="post-author">
-                      <div className="author-avatar">
-                        <i className="fas fa-user"></i>
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map(post => (
+                <article key={post._id} className="post-card">
+                  <div className="post-image">
+                    {post.imageUrl ? (
+                      <img src={post.imageUrl} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    ) : (
+                      <div className="post-image-placeholder">
+                        <i className="fas fa-newspaper"></i>
                       </div>
-                      <span>{post.author}</span>
-                    </div>
-                    <Link to={`/blog/${post.id}`} className="read-more">
-                      Read More <i className="fas fa-arrow-right"></i>
-                    </Link>
+                    )}
+                    <div className="post-category-badge">{post.category}</div>
                   </div>
-                </div>
-              </article>
-            ))}
+                  <div className="post-content">
+                    <div className="post-meta">
+                      <span className="post-date">{new Date(post.date).toLocaleDateString()}</span>
+                      <span className="read-time">
+                        <i className="fas fa-clock"></i> {post.readTime}
+                      </span>
+                    </div>
+                    <h3>{post.title}</h3>
+                    <p>{post.excerpt}</p>
+                    <div className="post-footer">
+                      <div className="post-author">
+                        <div className="author-avatar">
+                          <i className="fas fa-user"></i>
+                        </div>
+                        <span>{post.author}</span>
+                      </div>
+                      <Link to={`/blog/${post._id}`} className="read-more">
+                        Read More <i className="fas fa-arrow-right"></i>
+                      </Link>
+                    </div>
+                    <SocialShare
+                      title={post.title}
+                      url={`${window.location.origin}/blog/${post._id}`}
+                    />
+                  </div>
+                </article>
+              ))
+            ) : (
+              <div className="no-results" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px' }}>
+                <i className="fas fa-search" style={{ fontSize: '48px', color: '#ccc', marginBottom: '20px' }}></i>
+                <h3>No articles found</h3>
+                <p>Try adjusting your search or filter to find what you're looking for.</p>
+              </div>
+            )}
           </div>
 
           <div className="pagination">

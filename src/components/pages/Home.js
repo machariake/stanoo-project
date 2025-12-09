@@ -1,10 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import SEO from '../common/SEO';
+import config from '../../config';
 import './Home.css';
 
 const Home = () => {
+  const [services, setServices] = useState([]);
+  const [testimonials, setTestimonials] = useState([]);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get(`${config.API_URL}/services`);
+        const sorted = response.data.services.sort((a, b) => a.order - b.order);
+        setServices(sorted);
+      } catch (err) {
+        console.error('Error fetching services:', err);
+      }
+    };
+
+    const fetchTestimonials = async () => {
+      try {
+        const response = await axios.get(`${config.API_URL}/testimonials`);
+        const sorted = response.data.testimonials.sort((a, b) => a.order - b.order);
+        setTestimonials(sorted);
+      } catch (err) {
+        console.error('Error fetching testimonials:', err);
+      }
+    };
+
+    fetchServices();
+    fetchTestimonials();
+  }, []);
+
   return (
     <div className="home">
+      <SEO
+        title="Home"
+        description="Leading provider of comprehensive health, safety, and environmental management services in East Africa."
+      />
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-background">
@@ -14,12 +49,12 @@ const Home = () => {
           <div className="hero-content">
             <div className="hero-text">
               <h1 className="hero-title">
-                Creating Safer Workplaces for a 
+                Creating Safer Workplaces for a
                 <span className="highlight"> Sustainable Future</span>
               </h1>
               <p className="hero-description">
-                Leading provider of comprehensive health, safety, and environmental 
-                management services. We help organizations minimize risks, ensure 
+                Leading provider of comprehensive health, safety, and environmental
+                management services. We help organizations minimize risks, ensure
                 compliance, and build sustainable business practices.
               </p>
               <div className="hero-actions">
@@ -63,46 +98,22 @@ const Home = () => {
             <p>Comprehensive solutions for all your health, safety, and environmental needs</p>
           </div>
           <div className="services-grid">
-            <div className="service-card">
-              <div className="service-icon">
-                <i className="fas fa-clipboard-check"></i>
-              </div>
-              <h3>Health & Safety Audits</h3>
-              <p>Comprehensive workplace assessments to identify hazards and ensure compliance with safety regulations.</p>
-              <Link to="/services#health-safety-audits" className="service-link">
-                Learn More <i className="fas fa-arrow-right"></i>
-              </Link>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">
-                <i className="fas fa-leaf"></i>
-              </div>
-              <h3>Environmental Impact Assessments</h3>
-              <p>Detailed environmental studies to minimize ecological impact and ensure sustainable operations.</p>
-              <Link to="/services#environmental-assessments" className="service-link">
-                Learn More <i className="fas fa-arrow-right"></i>
-              </Link>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">
-                <i className="fas fa-chalkboard-teacher"></i>
-              </div>
-              <h3>Training & Consultancy</h3>
-              <p>Expert training programs and consultancy services to build safety culture and best practices.</p>
-              <Link to="/services#training-consultancy" className="service-link">
-                Learn More <i className="fas fa-arrow-right"></i>
-              </Link>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">
-                <i className="fas fa-exclamation-triangle"></i>
-              </div>
-              <h3>Risk Management Solutions</h3>
-              <p>Comprehensive risk assessment and management strategies to protect your business and employees.</p>
-              <Link to="/services#risk-management" className="service-link">
-                Learn More <i className="fas fa-arrow-right"></i>
-              </Link>
-            </div>
+            {services.length > 0 ? (
+              services.map(service => (
+                <div className="service-card" key={service._id}>
+                  <div className="service-icon">
+                    <i className={service.icon}></i>
+                  </div>
+                  <h3>{service.title}</h3>
+                  <p>{service.shortDescription}</p>
+                  <Link to={`/services#${service._id}`} className="service-link">
+                    Learn More <i className="fas fa-arrow-right"></i>
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <div className="text-center">Loading services...</div>
+            )}
           </div>
         </div>
       </section>
@@ -175,48 +186,31 @@ const Home = () => {
             <p>Trusted by businesses across various industries</p>
           </div>
           <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                <div className="testimonial-quote">
-                  <i className="fas fa-quote-left"></i>
-                </div>
-                <p>"Theuri Green Health Safe transformed our workplace safety culture. Their comprehensive audits and training programs have significantly reduced incidents and improved compliance."</p>
-                <div className="testimonial-author">
-                  <div className="author-info">
-                    <h4>Sarah Johnson</h4>
-                    <span>Safety Manager, ABC Manufacturing</span>
+            {testimonials.length > 0 ? (
+              testimonials.map(item => (
+                <div className="testimonial-card" key={item._id}>
+                  <div className="testimonial-content">
+                    <div className="testimonial-quote">
+                      <i className="fas fa-quote-left"></i>
+                    </div>
+                    <p>"{item.quote}"</p>
+                    <div className="testimonial-author">
+                      {item.imageUrl && (
+                        <div className="author-image" style={{ width: '50px', height: '50px', borderRadius: '50%', overflow: 'hidden', marginRight: '15px' }}>
+                          <img src={item.imageUrl} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        </div>
+                      )}
+                      <div className="author-info">
+                        <h4>{item.name}</h4>
+                        <span>{item.role}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                <div className="testimonial-quote">
-                  <i className="fas fa-quote-left"></i>
-                </div>
-                <p>"Their environmental impact assessments helped us achieve our sustainability goals while maintaining operational efficiency. Highly professional and knowledgeable team."</p>
-                <div className="testimonial-author">
-                  <div className="author-info">
-                    <h4>Michael Chen</h4>
-                    <span>Environmental Director, GreenTech Solutions</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                <div className="testimonial-quote">
-                  <i className="fas fa-quote-left"></i>
-                </div>
-                <p>"Outstanding consultancy services that provided practical solutions to our risk management challenges. Their expertise is unmatched in the industry."</p>
-                <div className="testimonial-author">
-                  <div className="author-info">
-                    <h4>Emma Williams</h4>
-                    <span>Operations Manager, Construction Plus</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+              ))
+            ) : (
+              <div className="text-center">Loading testimonials...</div>
+            )}
           </div>
         </div>
       </section>
