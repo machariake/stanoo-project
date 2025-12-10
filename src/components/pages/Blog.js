@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../common/SEO';
 import SocialShare from '../common/SocialShare';
+import PageHeader from '../common/PageHeader';
 import config from '../../config';
 import './Blog.css';
 
@@ -74,15 +75,13 @@ const Blog = () => {
         title="Blog & News"
         description="Stay informed with the latest insights, trends, and best practices in health, safety, and environmental management."
       />
-      {/* Hero Section */}
-      <section className="blog-hero section">
-        <div className="container">
-          <div className="hero-content text-center">
-            <h1>Blog & News</h1>
-            <p>Stay informed with the latest insights, trends, and best practices in health, safety, and environmental management</p>
-          </div>
-        </div>
-      </section>
+
+
+      <PageHeader
+        title="Blog & News"
+        subtitle="Stay informed with the latest insights, trends, and best practices."
+        breadcrumb="Blog"
+      />
 
       {/* Featured Post (Only show if no search/filter is active) */}
       {featuredPost && searchQuery === '' && selectedCategory === 'All Categories' && (

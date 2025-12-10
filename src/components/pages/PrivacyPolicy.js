@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'; // Import useEffect
 import SEO from '../common/SEO';
+import PageHeader from '../common/PageHeader';
 import config from '../../config';
 import './PrivacyPolicy.css';
 
@@ -88,14 +89,11 @@ const PrivacyPolicy = () => {
                 description="Privacy Policy for Theuri Green Health Safe. Learn how we collect, use, and protect your personal information."
             />
 
-            <section className="privacy-hero">
-                <div className="container">
-                    <div className="hero-content text-center">
-                        <h1>Privacy Policy</h1>
-                        <p>Transparency and trust are at the core of our business</p>
-                    </div>
-                </div>
-            </section>
+            <PageHeader
+                title="Privacy Policy"
+                subtitle="Transparency and trust are at the core of our business."
+                breadcrumb="Privacy Policy"
+            />
 
             <div className="container">
                 <div className="privacy-content">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SEO from '../common/SEO';
+import PageHeader from '../common/PageHeader';
 import config from '../../config';
 import './About.css';
 
@@ -27,23 +28,16 @@ const About = () => {
         title="About Us"
         description="Learn about Theuri Green Health Safe, our mission, vision, values, and the expert team dedicated to your safety."
       />
-      {/* Hero Section */}
-      <section className="about-hero section">
-        <div className="container">
-          <div className="about-hero-content">
-            <div className="hero-text">
-              <h1>About Theuri Green Health Safe</h1>
-              <p>Leading the way in health, safety, and environmental management with innovative solutions and unwavering commitment to excellence.</p>
-            </div>
-            <div className="hero-image">
-              <div className="hero-image-placeholder">
-                <i className="fas fa-building"></i>
-                <span>Our Company</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SEO
+        title="About Us"
+        description="Learn about Theuri Green Health Safe, our mission, vision, values, and the expert team dedicated to your safety."
+      />
+
+      <PageHeader
+        title="About Theuri Green Health Safe"
+        subtitle="Leading the way in health, safety, and environmental management."
+        breadcrumb="About Us"
+      />
 
       {/* Mission Vision Values */}
       <section className="mission-vision section section-alt">

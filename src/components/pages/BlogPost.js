@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SEO from '../common/SEO';
 import SocialShare from '../common/SocialShare';
+import PageHeader from '../common/PageHeader';
 import config from '../../config';
 import './BlogPost.css';
 
@@ -71,21 +72,12 @@ const BlogPost = () => {
                 image={post.imageUrl}
             />
 
-            <section className="post-hero" style={heroStyle}>
-                <div className="container">
-                    <div className="post-hero-content">
-                        <div className="post-category-badge" style={{ display: 'inline-block', marginBottom: '15px' }}>
-                            {post.category}
-                        </div>
-                        <h1>{post.title}</h1>
-                        <div className="post-hero-meta">
-                            <span><i className="fas fa-user"></i> {post.author}</span>
-                            <span><i className="fas fa-calendar-alt"></i> {new Date(post.date).toLocaleDateString()}</span>
-                            <span><i className="fas fa-clock"></i> {post.readTime}</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <PageHeader
+                title={post.title}
+                subtitle={`By ${post.author} • ${new Date(post.date).toLocaleDateString()} • ${post.readTime}`}
+                backgroundImage={post.imageUrl}
+                breadcrumb={post.title}
+            />
 
             <div className="container post-container">
                 {/* Content */}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SEO from '../common/SEO';
+import PageHeader from '../common/PageHeader';
 import config from '../../config';
 import { useToast } from '../../context/ToastContext';
 import './Contact.css';
@@ -119,15 +120,12 @@ const Contact = () => {
         title="Contact Us"
         description="Get in touch with Theuri Green Health Safe for expert consultation on health, safety, and environmental management solutions."
       />
-      {/* Hero Section */}
-      <section className="contact-hero section">
-        <div className="container">
-          <div className="hero-content text-center">
-            <h1>Contact Us</h1>
-            <p>Get in touch with our experts for professional consultation and customized solutions</p>
-          </div>
-        </div>
-      </section>
+
+      <PageHeader
+        title="Contact Us"
+        subtitle="Get in touch with our experts for professional consultation and customized solutions."
+        breadcrumb="Contact"
+      />
 
       {/* Contact Form & Info */}
       <section className="contact-main section">

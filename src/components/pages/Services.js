@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import SEO from '../common/SEO';
+import PageHeader from '../common/PageHeader';
 import config from '../../config';
 import './Services.css';
 
@@ -42,15 +43,12 @@ const Services = () => {
         title="Our Services"
         description="Explore our wide range of services including Health & Safety Audits, Environmental Impact Assessments, and Training."
       />
-      {/* Hero Section */}
-      <section className="services-hero section">
-        <div className="container">
-          <div className="hero-content text-center">
-            <h1>Our Professional Services</h1>
-            <p>Comprehensive health, safety, and environmental management solutions tailored to your business needs</p>
-          </div>
-        </div>
-      </section>
+
+      <PageHeader
+        title="Our Professional Services"
+        subtitle="Comprehensive health, safety, and environmental management solutions."
+        breadcrumb="Services"
+      />
 
       {loading ? (
         <div className="container text-center" style={{ padding: '50px 0' }}>

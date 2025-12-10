@@ -12,6 +12,7 @@ import WhatsAppWidget from './components/common/WhatsAppWidget';
 import CookieConsent from './components/common/CookieConsent';
 import PrivacyPolicy from './components/pages/PrivacyPolicy';
 import BlogPost from './components/pages/BlogPost';
+import Projects from './components/pages/Projects';
 
 /* Admin Components */
 import AdminDashboard from './components/admin/AdminDashboard';
@@ -41,6 +42,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
             {/* Admin Routes */}

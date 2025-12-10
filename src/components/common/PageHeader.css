@@ -1,0 +1,73 @@
+.page-header {
+    background-color: var(--primary-green);
+    background-size: cover;
+    background-position: center;
+    color: var(--white);
+    padding: var(--spacing-2xl) 0;
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+    position: relative;
+    border-bottom: 4px solid var(--accent-green);
+}
+
+.page-header-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-title {
+    color: var(--white);
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-xs);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.page-subtitle {
+    color: var(--light-green);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 50px;
+    font-size: var(--font-size-sm);
+    backdrop-filter: blur(5px);
+}
+
+.breadcrumb a {
+    color: var(--white);
+    font-weight: 500;
+}
+
+.breadcrumb a:hover {
+    color: var(--light-green);
+    text-decoration: underline;
+}
+
+.breadcrumb .separator {
+    margin: 0 var(--spacing-xs);
+    color: var(--light-green);
+}
+
+.breadcrumb .current {
+    color: var(--light-green);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        padding: var(--spacing-xl) 0;
+    }
+
+    .page-title {
+        font-size: var(--font-size-2xl);
+    }
+
+    .page-subtitle {
+        font-size: var(--font-size-base);
+    }
+}
