@@ -16,7 +16,8 @@ try {
     if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
         const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
         admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount)
+            credential: admin.credential.cert(serviceAccount),
+            storageBucket: process.env.FIREBASE_STORAGE_BUCKET
         });
         console.log('✅ Firebase Admin Initialized from Env Var');
     }
@@ -24,7 +25,8 @@ try {
     else if (process.env.FIREBASE_SERVICE_ACCOUNT_PATH) {
         const serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT_PATH);
         admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount)
+            credential: admin.credential.cert(serviceAccount),
+            storageBucket: process.env.FIREBASE_STORAGE_BUCKET
         });
         console.log('✅ Firebase Admin Initialized from File');
     } else {
