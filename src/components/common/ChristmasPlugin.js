@@ -42,7 +42,6 @@ const ChristmasPlugin = () => {
                 playPromise.then(() => {
                     setIsPlaying(true);
                 }).catch(() => {
-                    console.log("Autoplay prevented. User interaction needed.");
                     setIsPlaying(false); // Show play button
                 });
             }
