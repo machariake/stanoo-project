@@ -51,6 +51,27 @@ const ChristmasPlugin = () => {
         }
     }, [musicEnabled, enabled, isMuted, musicUrl]);
 
+    // Attempt to autoplay on first user interaction if blocked
+    useEffect(() => {
+        const handleUserInteraction = () => {
+            if (musicEnabled && enabled && audioRef.current && !isPlaying && !isMuted) {
+                audioRef.current.play().then(() => {
+                    setIsPlaying(true);
+                }).catch(() => {
+                    // Still blocked or failed
+                });
+            }
+        };
+
+        window.addEventListener('click', handleUserInteraction);
+        window.addEventListener('keydown', handleUserInteraction);
+
+        return () => {
+            window.removeEventListener('click', handleUserInteraction);
+            window.removeEventListener('keydown', handleUserInteraction);
+        };
+    }, [musicEnabled, enabled, isPlaying, isMuted]);
+
     const toggleMute = () => {
         setIsMuted(!isMuted);
     };

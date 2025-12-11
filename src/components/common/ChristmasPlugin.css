@@ -116,7 +116,8 @@
 .christmas-music-control {
     position: fixed;
     bottom: 20px;
-    left: 20px;
+    right: 20px;
+    left: auto;
     z-index: 10000;
     pointer-events: auto;
     /* Re-enable clicks for button */
