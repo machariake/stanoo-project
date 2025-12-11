@@ -41,48 +41,48 @@ const Home = () => {
         description="Leading provider of comprehensive health, safety, and environmental management services in East Africa."
       />
       {/* Hero Section */}
-      <section className="hero">
+      <section className="hero fade-in">
         <div className="hero-background">
           <div className="hero-overlay"></div>
         </div>
         <div className="container">
           <div className="hero-content">
-            <div className="hero-text">
+            <div className="hero-text slide-up delay-100">
               <h1 className="hero-title">
                 Creating Safer Workplaces for a
-                <span className="highlight"> Sustainable Future</span>
+                <span className="highlight gradient-text"> Sustainable Future</span>
               </h1>
-              <p className="hero-description">
+              <p className="hero-description slide-up delay-200">
                 Leading provider of comprehensive health, safety, and environmental
                 management services. We help organizations minimize risks, ensure
                 compliance, and build sustainable business practices.
               </p>
-              <div className="hero-actions">
-                <Link to="/services" className="btn btn-primary btn-lg">
+              <div className="hero-actions slide-up delay-300">
+                <Link to="/services" className="btn btn-primary btn-lg hover-float">
                   Our Services
                 </Link>
-                <Link to="/contact" className="btn btn-outline btn-lg">
+                <Link to="/contact" className="btn btn-outline btn-lg hover-float">
                   Get Consultation
                 </Link>
               </div>
-              <div className="hero-stats">
-                <div className="stat">
-                  <span className="stat-number">500+</span>
+              <div className="hero-stats slide-up delay-400">
+                <div className="stat glass-card">
+                  <span className="stat-number gradient-text">500+</span>
                   <span className="stat-label">Projects Completed</span>
                 </div>
-                <div className="stat">
-                  <span className="stat-number">15+</span>
+                <div className="stat glass-card">
+                  <span className="stat-number gradient-text">15+</span>
                   <span className="stat-label">Years Experience</span>
                 </div>
-                <div className="stat">
-                  <span className="stat-number">100%</span>
+                <div className="stat glass-card">
+                  <span className="stat-number gradient-text">100%</span>
                   <span className="stat-label">Client Satisfaction</span>
                 </div>
               </div>
             </div>
-            <div className="hero-image">
-              <div className="hero-image-placeholder">
-                <i className="fas fa-shield-alt"></i>
+            <div className="hero-image slide-in-right delay-200">
+              <div className="hero-image-placeholder glass-panel">
+                <i className="fas fa-shield-alt icon-xl gradient-text"></i>
                 <span>Safety & Environment</span>
               </div>
             </div>
@@ -93,16 +93,16 @@ const Home = () => {
       {/* Services Overview Section */}
       <section className="services-overview section">
         <div className="container">
-          <div className="section-header text-center">
+          <div className="section-header text-center slide-up">
             <h2>Our Core Services</h2>
             <p>Comprehensive solutions for all your health, safety, and environmental needs</p>
           </div>
           <div className="services-grid">
             {services.length > 0 ? (
-              services.map(service => (
-                <div className="service-card" key={service._id}>
+              services.map((service, idx) => (
+                <div className={`service-card glass-card slide-up delay-${Math.min((idx + 1) * 100, 500)}`} key={service._id}>
                   <div className="service-icon">
-                    <i className={service.icon}></i>
+                    <i className={`${service.icon} gradient-text`}></i>
                   </div>
                   <h3>{service.title}</h3>
                   <p>{service.shortDescription}</p>
@@ -119,57 +119,49 @@ const Home = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="why-choose-us section section-alt">
+      <section className="why-choose-us section section-alt gradient-bg" style={{ color: 'white' }}>
         <div className="container">
           <div className="row">
             <div className="col-2">
-              <div className="why-content">
-                <h2>Why Choose Theuri Green Health Safe?</h2>
-                <p>We are committed to excellence in health, safety, and environmental management, providing tailored solutions that meet your specific needs.</p>
+              <div className="why-content slide-up">
+                <h2 style={{ color: 'white' }}>Why Choose Theuri Green Health Safe?</h2>
+                <p style={{ color: 'rgba(255,255,255,0.9)' }}>We are committed to excellence in health, safety, and environmental management, providing tailored solutions that meet your specific needs.</p>
                 <div className="why-features">
-                  <div className="feature">
-                    <div className="feature-icon">
-                      <i className="fas fa-certificate"></i>
+                  {/* Features with manual staggered delay */}
+                  <div className="feature slide-up delay-100">
+                    <div className="feature-icon glass-card" style={{ background: 'rgba(255,255,255,0.2)' }}>
+                      <i className="fas fa-certificate" style={{ color: 'white' }}></i>
                     </div>
                     <div className="feature-content">
-                      <h4>Certified Experts</h4>
-                      <p>Our team consists of certified professionals with extensive experience in HSE management.</p>
+                      <h4 style={{ color: 'white' }}>Certified Experts</h4>
+                      <p style={{ color: 'rgba(255,255,255,0.8)' }}>Our team consists of certified professionals with extensive experience in HSE management.</p>
                     </div>
                   </div>
-                  <div className="feature">
-                    <div className="feature-icon">
-                      <i className="fas fa-clock"></i>
+                  <div className="feature slide-up delay-200">
+                    <div className="feature-icon glass-card" style={{ background: 'rgba(255,255,255,0.2)' }}>
+                      <i className="fas fa-clock" style={{ color: 'white' }}></i>
                     </div>
                     <div className="feature-content">
-                      <h4>Timely Delivery</h4>
-                      <p>We understand the importance of deadlines and always deliver our services on time.</p>
+                      <h4 style={{ color: 'white' }}>Timely Delivery</h4>
+                      <p style={{ color: 'rgba(255,255,255,0.8)' }}>We understand the importance of deadlines and always deliver our services on time.</p>
                     </div>
                   </div>
-                  <div className="feature">
-                    <div className="feature-icon">
-                      <i className="fas fa-handshake"></i>
+                  <div className="feature slide-up delay-300">
+                    <div className="feature-icon glass-card" style={{ background: 'rgba(255,255,255,0.2)' }}>
+                      <i className="fas fa-handshake" style={{ color: 'white' }}></i>
                     </div>
                     <div className="feature-content">
-                      <h4>Personalized Approach</h4>
-                      <p>Every client receives customized solutions tailored to their unique requirements and challenges.</p>
-                    </div>
-                  </div>
-                  <div className="feature">
-                    <div className="feature-icon">
-                      <i className="fas fa-phone-alt"></i>
-                    </div>
-                    <div className="feature-content">
-                      <h4>24/7 Support</h4>
-                      <p>Our support team is available around the clock to assist with any queries or emergencies.</p>
+                      <h4 style={{ color: 'white' }}>Personalized Approach</h4>
+                      <p style={{ color: 'rgba(255,255,255,0.8)' }}>Every client receives customized solutions tailored to their unique requirements and challenges.</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="col-2">
-              <div className="why-image">
-                <div className="why-image-placeholder">
-                  <i className="fas fa-users"></i>
+              <div className="why-image slide-in-right delay-200">
+                <div className="why-image-placeholder glass-panel">
+                  <i className="fas fa-users icon-xl gradient-text"></i>
                   <span>Expert Team</span>
                 </div>
               </div>
@@ -181,17 +173,17 @@ const Home = () => {
       {/* Testimonials Section */}
       <section className="testimonials section">
         <div className="container">
-          <div className="section-header text-center">
+          <div className="section-header text-center slide-up">
             <h2>What Our Clients Say</h2>
             <p>Trusted by businesses across various industries</p>
           </div>
           <div className="testimonials-grid">
             {testimonials.length > 0 ? (
-              testimonials.map(item => (
-                <div className="testimonial-card" key={item._id}>
+              testimonials.map((item, idx) => (
+                <div className={`testimonial-card glass-card slide-up delay-${Math.min((idx + 1) * 100, 500)}`} key={item._id}>
                   <div className="testimonial-content">
                     <div className="testimonial-quote">
-                      <i className="fas fa-quote-left"></i>
+                      <i className="fas fa-quote-left gradient-text"></i>
                     </div>
                     <p>"{item.quote}"</p>
                     <div className="testimonial-author">
@@ -216,16 +208,16 @@ const Home = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="cta section">
+      <section className="cta section scale-in delay-200">
         <div className="container">
-          <div className="cta-content text-center">
-            <h2>Ready to Make Your Workplace Safer?</h2>
+          <div className="cta-content text-center glass-panel" style={{ padding: '3rem', borderRadius: '1rem', background: 'rgba(255,255,255,0.95)' }}>
+            <h2 className="gradient-text">Ready to Make Your Workplace Safer?</h2>
             <p>Get in touch with our experts today for a free consultation and discover how we can help protect your business and environment.</p>
-            <div className="cta-actions">
-              <Link to="/contact" className="btn btn-primary btn-lg">
+            <div className="cta-actions" style={{ marginTop: '20px' }}>
+              <Link to="/contact" className="btn btn-primary btn-lg hover-float">
                 Get Free Consultation
               </Link>
-              <a href="tel:+254700000000" className="btn btn-secondary btn-lg">
+              <a href="tel:+254700000000" className="btn btn-secondary btn-lg hover-float">
                 <i className="fas fa-phone"></i> Call Now
               </a>
             </div>
