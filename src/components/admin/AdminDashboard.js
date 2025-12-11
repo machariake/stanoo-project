@@ -34,7 +34,7 @@ const AdminDashboard = () => {
                     <p style={{ margin: '5px 0 0 0', color: '#666' }}>Theuri Green Health Safe</p>
                 </div>
                 <div>
-                    <a href="/" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ marginRight: '10px' }}>
+                    <a href="https://stanoo-frontend.onrender.com" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ marginRight: '10px' }}>
                         View Live Site
                     </a>
                     <button onClick={handleLogout} className="btn btn-secondary" style={{ background: '#dc3545', borderColor: '#dc3545', color: 'white' }}>
