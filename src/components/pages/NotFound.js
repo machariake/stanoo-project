@@ -5,7 +5,6 @@ import './NotFound.css';
 
 const NotFound = () => {
     return (
-    return (
         <div className="not-found fade-in">
             <SEO
                 title="Page Not Found"
