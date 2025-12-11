@@ -88,6 +88,31 @@ const BlogPost = () => {
                     ))}
                 </div>
 
+                {/* Article Gallery */}
+                {post.galleryImages && post.galleryImages.length > 0 && (
+                    <div className="post-gallery" style={{ marginTop: '40px', marginBottom: '40px' }}>
+                        <h3 style={{ borderLeft: '4px solid #2d5f3f', paddingLeft: '15px', marginBottom: '20px' }}>Image Gallery</h3>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+                            gap: '15px'
+                        }}>
+                            {post.galleryImages.map((img, idx) => (
+                                <div key={idx} style={{ height: '200px', borderRadius: '8px', overflow: 'hidden' }}>
+                                    <img
+                                        src={img}
+                                        alt={`Gallery ${idx + 1}`}
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s' }}
+                                        onClick={() => window.open(img, '_blank')}
+                                        title="Click to view full size"
+                                        className="gallery-img"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 <div className="post-footer-actions">
                     <Link to="/blog" className="back-btn">
                         <i className="fas fa-arrow-left"></i> Back to All Articles

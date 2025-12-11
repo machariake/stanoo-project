@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import config from '../../config';
 import ImageUpload from '../common/ImageUpload';
+import MultiImageUpload from '../common/MultiImageUpload';
 import './Admin.css';
 
 const PostForm = () => {
@@ -14,6 +15,7 @@ const PostForm = () => {
         category: '',
         readTime: '',
         imageUrl: 'post-default',
+        galleryImages: [],
         date: new Date().toISOString().split('T')[0]
     });
     const [loading, setLoading] = useState(false);
@@ -47,6 +49,10 @@ const PostForm = () => {
 
     const handleImageUpload = (url) => {
         setFormData(prev => ({ ...prev, imageUrl: url }));
+    };
+
+    const handleGalleryUpdate = (images) => {
+        setFormData(prev => ({ ...prev, galleryImages: images }));
     };
 
     const handleSubmit = async (e) => {
@@ -144,6 +150,13 @@ const PostForm = () => {
                     currentImage={formData.imageUrl}
                     onImageUpload={handleImageUpload}
                     label="Featured Image"
+                />
+
+                <MultiImageUpload
+                    currentImages={formData.galleryImages || []}
+                    onImagesUpdate={handleGalleryUpdate}
+                    label="Article Gallery (Optional)"
+                    maxImages={10}
                 />
 
                 <div className="form-group">
