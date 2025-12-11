@@ -119,6 +119,7 @@ const Footer = () => {
               <button
                 type="submit"
                 disabled={subscribing}
+                className="hover-float"
                 style={{
                   width: '100%',
                   padding: '10px',

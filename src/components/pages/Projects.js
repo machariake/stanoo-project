@@ -36,7 +36,7 @@ const Projects = () => {
         : projects.filter(p => p.category === filter);
 
     return (
-        <div className="projects-page">
+        <div className="projects-page fade-in">
             <SEO
                 title="Our Projects"
                 description="Explore our portfolio of successful health, safety, and environmental projects across East Africa."
@@ -52,7 +52,7 @@ const Projects = () => {
                 <div className="container">
 
                     {/* Filter Buttons */}
-                    <div className="project-filters text-center">
+                    <div className="project-filters text-center slide-up">
                         {categories.map((cat, idx) => (
                             <button
                                 key={idx}
@@ -73,26 +73,26 @@ const Projects = () => {
                     ) : (
                         <div className="projects-grid">
                             {filteredProjects.length > 0 ? (
-                                filteredProjects.map(project => (
-                                    <div key={project._id || project.id} className="project-card fade-in">
+                                filteredProjects.map((project, idx) => (
+                                    <div key={project._id || project.id} className={`project-card glass-card hover-float slide-up delay-${Math.min((idx + 1) * 100, 500)}`}>
                                         <div className="project-image">
                                             {/* Support both 'imageUrl' (API) and 'image' (legacy/static) */}
                                             <img src={project.imageUrl || project.image || 'https://via.placeholder.com/400x300?text=Project'} alt={project.title} />
                                             <div className="project-overlay">
-                                                <span className="project-category">{project.category}</span>
+                                                <span className="project-category gradient-bg">{project.category}</span>
                                             </div>
                                         </div>
                                         <div className="project-content">
-                                            <h3>{project.title}</h3>
+                                            <h3 className="gradient-text">{project.title}</h3>
                                             <p className="client-name"><strong>Client:</strong> {project.client}</p>
                                             <p className="project-desc">{project.description}</p>
 
                                             {project.results && project.results.length > 0 && (
-                                                <div className="project-results">
+                                                <div className="project-results glass-panel" style={{ padding: '10px', marginTop: '15px', borderRadius: '8px' }}>
                                                     <h4>Key Results:</h4>
                                                     <ul>
                                                         {project.results.map((result, i) => (
-                                                            <li key={i}><i className="fas fa-check-circle"></i> {result}</li>
+                                                            <li key={i}><i className="fas fa-check-circle gradient-text"></i> {result}</li>
                                                         ))}
                                                     </ul>
                                                 </div>
@@ -108,8 +108,8 @@ const Projects = () => {
                         </div>
                     )}
 
-                    <div className="text-center mt-4">
-                        <Link to="/contact" className="btn btn-primary btn-lg">
+                    <div className="text-center mt-4 scale-in delay-200">
+                        <Link to="/contact" className="btn btn-primary btn-lg hover-float">
                             Start Your Project With Us
                         </Link>
                     </div>

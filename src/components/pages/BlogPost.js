@@ -65,7 +65,7 @@ const BlogPost = () => {
     };
 
     return (
-        <div className="blog-post-page">
+        <div className="blog-post-page fade-in">
             <SEO
                 title={post.title}
                 description={post.excerpt}
@@ -79,9 +79,9 @@ const BlogPost = () => {
                 breadcrumb={post.title}
             />
 
-            <div className="container post-container">
+            <div className="container post-container slide-up delay-100">
                 {/* Content */}
-                <div className="post-content">
+                <div className="post-content glass-panel" style={{ padding: '40px', borderRadius: '15px' }}>
                     {/* Render paragraphs appropriately. */}
                     {post.content.split('\n').map((paragraph, idx) => (
                         paragraph.trim() !== '' && <p key={idx}>{paragraph}</p>
@@ -90,15 +90,15 @@ const BlogPost = () => {
 
                 {/* Article Gallery */}
                 {post.galleryImages && post.galleryImages.length > 0 && (
-                    <div className="post-gallery" style={{ marginTop: '40px', marginBottom: '40px' }}>
-                        <h3 style={{ borderLeft: '4px solid #2d5f3f', paddingLeft: '15px', marginBottom: '20px' }}>Image Gallery</h3>
+                    <div className="post-gallery slide-up delay-200" style={{ marginTop: '40px', marginBottom: '40px' }}>
+                        <h3 className="gradient-text" style={{ borderLeft: '4px solid #2d5f3f', paddingLeft: '15px', marginBottom: '20px' }}>Image Gallery</h3>
                         <div style={{
                             display: 'grid',
                             gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
                             gap: '15px'
                         }}>
                             {post.galleryImages.map((img, idx) => (
-                                <div key={idx} style={{ height: '200px', borderRadius: '8px', overflow: 'hidden' }}>
+                                <div key={idx} className="glass-card hover-float" style={{ height: '200px', borderRadius: '8px', overflow: 'hidden' }}>
                                     <img
                                         src={img}
                                         alt={`Gallery ${idx + 1}`}
@@ -113,12 +113,12 @@ const BlogPost = () => {
                     </div>
                 )}
 
-                <div className="post-footer-actions">
-                    <Link to="/blog" className="back-btn">
+                <div className="post-footer-actions slide-up delay-300">
+                    <Link to="/blog" className="back-btn hover-float">
                         <i className="fas fa-arrow-left"></i> Back to All Articles
                     </Link>
 
-                    <div className="share-wrapper">
+                    <div className="share-wrapper glass-panel" style={{ padding: '15px 25px', borderRadius: '50px' }}>
                         <span style={{ marginRight: '10px', fontWeight: 'bold', color: '#374151' }}>Share this article:</span>
                         <SocialShare
                             title={post.title}

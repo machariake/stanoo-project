@@ -115,7 +115,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact">
+    <div className="contact fade-in">
       <SEO
         title="Contact Us"
         description="Get in touch with Theuri Green Health Safe for expert consultation on health, safety, and environmental management solutions."
@@ -133,8 +133,8 @@ const Contact = () => {
           <div className="row">
             {/* Contact Form */}
             <div className="col-2">
-              <div className="contact-form-container">
-                <h2>Send Us a Message</h2>
+              <div className="contact-form-container glass-card slide-up delay-100">
+                <h2 className="gradient-text">Send Us a Message</h2>
                 <p>Fill out the form below and we'll get back to you within 24 hours</p>
 
                 <form className="contact-form" onSubmit={handleSubmit}>
@@ -232,7 +232,7 @@ const Contact = () => {
 
                   <button
                     type="submit"
-                    className="btn btn-primary btn-lg"
+                    className="btn btn-primary btn-lg hover-float"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
@@ -253,14 +253,14 @@ const Contact = () => {
 
             {/* Contact Information */}
             <div className="col-2">
-              <div className="contact-info">
-                <h2>Get In Touch</h2>
+              <div className="contact-info glass-card slide-in-right delay-200">
+                <h2 className="gradient-text">Get In Touch</h2>
                 <p>Ready to improve your workplace safety and environmental performance? Contact us today!</p>
 
                 <div className="contact-methods">
                   <div className="contact-method">
-                    <div className="method-icon">
-                      <i className="fas fa-map-marker-alt"></i>
+                    <div className="method-icon glass-panel">
+                      <i className="fas fa-map-marker-alt gradient-text"></i>
                     </div>
                     <div className="method-content">
                       <h4>Our Location</h4>
@@ -269,8 +269,8 @@ const Contact = () => {
                   </div>
 
                   <div className="contact-method">
-                    <div className="method-icon">
-                      <i className="fas fa-phone"></i>
+                    <div className="method-icon glass-panel">
+                      <i className="fas fa-phone gradient-text"></i>
                     </div>
                     <div className="method-content">
                       <h4>Phone Numbers</h4>
@@ -282,8 +282,8 @@ const Contact = () => {
                   </div>
 
                   <div className="contact-method">
-                    <div className="method-icon">
-                      <i className="fas fa-envelope"></i>
+                    <div className="method-icon glass-panel">
+                      <i className="fas fa-envelope gradient-text"></i>
                     </div>
                     <div className="method-content">
                       <h4>Email Address</h4>
@@ -294,8 +294,8 @@ const Contact = () => {
                   </div>
 
                   <div className="contact-method">
-                    <div className="method-icon">
-                      <i className="fas fa-clock"></i>
+                    <div className="method-icon glass-panel">
+                      <i className="fas fa-clock gradient-text"></i>
                     </div>
                     <div className="method-content">
                       <h4>Business Hours</h4>
@@ -308,10 +308,10 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="emergency-contact">
-                  <h3><i className="fas fa-exclamation-triangle"></i> Emergency Services</h3>
+                <div className="emergency-contact glass-panel" style={{ marginTop: '2rem', padding: '1.5rem', borderRadius: '0.5rem', borderLeft: '4px solid #ef4444' }}>
+                  <h3 style={{ color: '#ef4444' }}><i className="fas fa-exclamation-triangle"></i> Emergency Services</h3>
                   <p>For urgent safety or environmental incidents:</p>
-                  <a href={`tel:${settings.phone.replace(/\s+/g, '')}`} className="emergency-number">{settings.phone}</a>
+                  <a href={`tel:${settings.phone.replace(/\s+/g, '')}`} className="emergency-number" style={{ display: 'block', fontSize: '1.5rem', fontWeight: 'bold', color: '#ef4444', margin: '0.5rem 0' }}>{settings.phone}</a>
                   <span className="emergency-note">Available 24/7</span>
                 </div>
               </div>
@@ -321,14 +321,14 @@ const Contact = () => {
       </section>
 
       {/* Map Section */}
-      <section className="map-section section">
+      <section className="map-section section slide-up delay-300">
         <div className="container">
           <h2 className="text-center mb-4">Find Us</h2>
-          <div className="map-container">
+          <div className="map-container glass-card" style={{ padding: '10px' }}>
             {/* Placeholder for Google Maps */}
-            <div className="map-placeholder">
+            <div className="map-placeholder" style={{ borderRadius: '0.5rem', overflow: 'hidden' }}>
               <div className="map-content">
-                <i className="fas fa-map-marked-alt"></i>
+                <i className="fas fa-map-marked-alt text-4xl mb-4 gradient-text"></i>
                 <h3>Our Office Location</h3>
                 <p>{settings.address}</p>
                 <p className="map-note">
@@ -349,35 +349,35 @@ const Contact = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="faq-section section section-alt">
+      <section className="faq-section section section-alt gradient-bg">
         <div className="container">
-          <div className="section-header text-center">
-            <h2>Frequently Asked Questions</h2>
-            <p>Quick answers to common questions about our services</p>
+          <div className="section-header text-center slide-up">
+            <h2 style={{ color: 'white' }}>Frequently Asked Questions</h2>
+            <p style={{ color: 'rgba(255,255,255,0.9)' }}>Quick answers to common questions about our services</p>
           </div>
           <div className="faq-grid">
-            <div className="faq-item">
-              <h4>How quickly can you respond to consultation requests?</h4>
+            <div className="faq-item glass-card hover-float slide-up delay-100">
+              <h4 className="gradient-text">How quickly can you respond to consultation requests?</h4>
               <p>We typically respond to all consultation requests within 24 hours during business days. For urgent matters, we offer same-day response services.</p>
             </div>
-            <div className="faq-item">
-              <h4>Do you provide services across East Africa?</h4>
+            <div className="faq-item glass-card hover-float slide-up delay-200">
+              <h4 className="gradient-text">Do you provide services across East Africa?</h4>
               <p>Yes, we serve clients throughout East Africa. Our team can travel to your location or provide remote consultation services as needed.</p>
             </div>
-            <div className="faq-item">
-              <h4>What industries do you specialize in?</h4>
+            <div className="faq-item glass-card hover-float slide-up delay-300">
+              <h4 className="gradient-text">What industries do you specialize in?</h4>
               <p>We work with manufacturing, construction, healthcare, education, oil & gas, retail, and many other industries. Our solutions are customized for each sector's unique requirements.</p>
             </div>
-            <div className="faq-item">
-              <h4>Are your certifications internationally recognized?</h4>
+            <div className="faq-item glass-card hover-float slide-up delay-400">
+              <h4 className="gradient-text">Are your certifications internationally recognized?</h4>
               <p>Yes, our team holds internationally recognized certifications including ISO standards, NEBOSH, and other globally accepted credentials.</p>
             </div>
-            <div className="faq-item">
-              <h4>Do you offer emergency response services?</h4>
+            <div className="faq-item glass-card hover-float slide-up delay-500">
+              <h4 className="gradient-text">Do you offer emergency response services?</h4>
               <p>We provide 24/7 emergency response services for critical safety and environmental incidents. Contact our emergency hotline for immediate assistance.</p>
             </div>
-            <div className="faq-item">
-              <h4>Can you customize training programs for our organization?</h4>
+            <div className="faq-item glass-card hover-float slide-up delay-500">
+              <h4 className="gradient-text">Can you customize training programs for our organization?</h4>
               <p>Absolutely! We design customized training programs based on your specific industry, organizational needs, and compliance requirements.</p>
             </div>
           </div>

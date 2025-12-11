@@ -83,7 +83,7 @@ const PrivacyPolicy = () => {
     `;
 
     return (
-        <div className="privacy-policy">
+        <div className="privacy-policy fade-in">
             <SEO
                 title="Privacy Policy"
                 description="Privacy Policy for Theuri Green Health Safe. Learn how we collect, use, and protect your personal information."
@@ -95,12 +95,15 @@ const PrivacyPolicy = () => {
                 breadcrumb="Privacy Policy"
             />
 
-            <div className="container">
-                <div className="privacy-content">
-                    <span className="last-updated">Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            <div className="container slide-up delay-100">
+                <div className="privacy-content glass-panel" style={{ padding: '40px', borderRadius: '1rem', marginTop: '2rem', marginBottom: '3rem' }}>
+                    <span className="last-updated gradient-text" style={{ fontWeight: 'bold', display: 'block', marginBottom: '1.5rem' }}>Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
 
                     {loading ? (
-                        <p>Loading policy...</p>
+                        <div className="text-center py-5">
+                            <div className="loader"></div>
+                            <p>Loading policy...</p>
+                        </div>
                     ) : (
                         <div dangerouslySetInnerHTML={{ __html: content || defaultContent }} />
                     )}

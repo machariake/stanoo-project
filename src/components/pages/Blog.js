@@ -70,7 +70,7 @@ const Blog = () => {
   // if (error) return <div className="error-container">{error}</div>; // Optional: show error state
 
   return (
-    <div className="blog">
+    <div className="blog fade-in">
       <SEO
         title="Blog & News"
         description="Stay informed with the latest insights, trends, and best practices in health, safety, and environmental management."
@@ -85,37 +85,37 @@ const Blog = () => {
 
       {/* Featured Post (Only show if no search/filter is active) */}
       {featuredPost && searchQuery === '' && selectedCategory === 'All Categories' && (
-        <section className="featured-post section">
+        <section className="featured-post section slide-up">
           <div className="container">
-            <div className="featured-container">
+            <div className="featured-container glass-card">
               <div className="featured-image">
                 {featuredPost.imageUrl ? (
                   <img src={featuredPost.imageUrl} alt={featuredPost.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <div className="featured-image-placeholder">
-                    <i className="fas fa-microchip"></i>
-                    <span>Featured Article</span>
+                  <div className="featured-image-placeholder gradient-bg">
+                    <i className="fas fa-microchip" style={{ color: 'white' }}></i>
+                    <span style={{ color: 'white' }}>Featured Article</span>
                   </div>
                 )}
               </div>
               <div className="featured-content">
                 <div className="post-meta">
-                  <span className="post-category">{featuredPost.category}</span>
+                  <span className="post-category gradient-bg">{featuredPost.category}</span>
                   <span className="post-date">{new Date(featuredPost.date).toLocaleDateString()}</span>
                   <span className="read-time">
                     <i className="fas fa-clock"></i> {featuredPost.readTime}
                   </span>
                 </div>
-                <h2>{featuredPost.title}</h2>
+                <h2 className="gradient-text">{featuredPost.title}</h2>
                 <p>{featuredPost.excerpt}</p>
                 <div className="post-author">
-                  <div className="author-avatar">
+                  <div className="author-avatar gradient-bg" style={{ color: 'white' }}>
                     <i className="fas fa-user"></i>
                   </div>
                   <span>By {featuredPost.author}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
-                  <Link to={`/blog/${featuredPost._id}`} className="btn btn-primary" style={{ margin: 0 }}>
+                  <Link to={`/blog/${featuredPost._id}`} className="btn btn-primary hover-float" style={{ margin: 0 }}>
                     Read Full Article
                   </Link>
                   <SocialShare
@@ -132,14 +132,15 @@ const Blog = () => {
       {/* Blog Posts */}
       <section className="blog-posts section section-alt">
         <div className="container">
-          <div className="blog-header">
-            <h2>{searchQuery || selectedCategory !== 'All Categories' ? 'Search Results' : 'Latest Articles'}</h2>
+          <div className="blog-header slide-up">
+            <h2 className="gradient-text">{searchQuery || selectedCategory !== 'All Categories' ? 'Search Results' : 'Latest Articles'}</h2>
             <div className="blog-filters">
               <div className="categories-filter">
                 <select
                   className="category-select"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
+                  style={{ borderColor: '#e5e7eb', outline: 'none' }}
                 >
                   {categories.map((category, index) => (
                     <option key={index} value={category}>
@@ -156,24 +157,24 @@ const Blog = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <i className="fas fa-search"></i>
+                <i className="fas fa-search gradient-text"></i>
               </div>
             </div>
           </div>
 
           <div className="posts-grid">
             {filteredPosts.length > 0 ? (
-              filteredPosts.map(post => (
-                <article key={post._id} className="post-card">
+              filteredPosts.map((post, idx) => (
+                <article key={post._id} className={`post-card glass-card hover-float slide-up delay-${Math.min((idx + 1) * 100, 500)}`}>
                   <div className="post-image">
                     {post.imageUrl ? (
                       <img src={post.imageUrl} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     ) : (
-                      <div className="post-image-placeholder">
-                        <i className="fas fa-newspaper"></i>
+                      <div className="post-image-placeholder gradient-text" style={{ backgroundColor: '#f3f4f6' }}>
+                        <i className="fas fa-newspaper icon-xl"></i>
                       </div>
                     )}
-                    <div className="post-category-badge">{post.category}</div>
+                    <div className="post-category-badge gradient-bg" style={{ color: 'white' }}>{post.category}</div>
                   </div>
                   <div className="post-content">
                     <div className="post-meta">
@@ -182,16 +183,16 @@ const Blog = () => {
                         <i className="fas fa-clock"></i> {post.readTime}
                       </span>
                     </div>
-                    <h3>{post.title}</h3>
+                    <h4>{post.title}</h4>
                     <p>{post.excerpt}</p>
                     <div className="post-footer">
                       <div className="post-author">
-                        <div className="author-avatar">
+                        <div className="author-avatar gradient-bg" style={{ color: 'white' }}>
                           <i className="fas fa-user"></i>
                         </div>
                         <span>{post.author}</span>
                       </div>
-                      <Link to={`/blog/${post._id}`} className="read-more">
+                      <Link to={`/blog/${post._id}`} className="read-more gradient-text" style={{ fontWeight: 'bold' }}>
                         Read More <i className="fas fa-arrow-right"></i>
                       </Link>
                     </div>
@@ -211,12 +212,12 @@ const Blog = () => {
             )}
           </div>
 
-          <div className="pagination">
+          <div className="pagination slide-up delay-200">
             <button className="pagination-btn" disabled>
               <i className="fas fa-chevron-left"></i> Previous
             </button>
             <div className="pagination-numbers">
-              <button className="pagination-number active">1</button>
+              <button className="pagination-number active gradient-bg" style={{ color: 'white', border: 'none' }}>1</button>
               <button className="pagination-number">2</button>
               <button className="pagination-number">3</button>
               <span className="pagination-dots">...</span>
@@ -230,11 +231,11 @@ const Blog = () => {
       </section>
 
       {/* Newsletter Signup */}
-      <section className="newsletter section">
+      <section className="newsletter section scale-in delay-200">
         <div className="container">
-          <div className="newsletter-content">
+          <div className="newsletter-content glass-panel" style={{ borderRadius: '15px' }}>
             <div className="newsletter-text">
-              <h2>Stay Updated</h2>
+              <h2 className="gradient-text">Stay Updated</h2>
               <p>Subscribe to our newsletter and get the latest insights on health, safety, and environmental management delivered to your inbox.</p>
             </div>
             <div className="newsletter-form">
@@ -260,76 +261,76 @@ const Blog = () => {
       </section>
 
       {/* Popular Topics */}
-      <section className="popular-topics section section-alt">
+      <section className="popular-topics section section-alt gradient-bg">
         <div className="container">
-          <div className="section-header text-center">
-            <h2>Popular Topics</h2>
-            <p>Explore our most read categories and trending topics</p>
+          <div className="section-header text-center slide-up">
+            <h2 style={{ color: 'white' }}>Popular Topics</h2>
+            <p style={{ color: 'rgba(255,255,255,0.9)' }}>Explore our most read categories and trending topics</p>
           </div>
           <div className="topics-grid">
-            <div className="topic-card">
+            <div className="topic-card glass-card hover-float slide-up delay-100">
               <div className="topic-icon">
-                <i className="fas fa-shield-alt"></i>
+                <i className="fas fa-shield-alt gradient-text"></i>
               </div>
               <h3>Workplace Safety</h3>
               <p>Best practices, regulations, and innovative safety solutions</p>
-              <span className="topic-count">24 articles</span>
+              <span className="topic-count gradient-text">24 articles</span>
             </div>
-            <div className="topic-card">
+            <div className="topic-card glass-card hover-float slide-up delay-100">
               <div className="topic-icon">
-                <i className="fas fa-leaf"></i>
+                <i className="fas fa-leaf gradient-text"></i>
               </div>
               <h3>Environmental Compliance</h3>
               <p>Environmental regulations, impact assessments, and sustainability</p>
-              <span className="topic-count">18 articles</span>
+              <span className="topic-count gradient-text">18 articles</span>
             </div>
-            <div className="topic-card">
+            <div className="topic-card glass-card hover-float slide-up delay-200">
               <div className="topic-icon">
-                <i className="fas fa-exclamation-triangle"></i>
+                <i className="fas fa-exclamation-triangle gradient-text"></i>
               </div>
               <h3>Risk Management</h3>
               <p>Risk assessment, mitigation strategies, and crisis management</p>
-              <span className="topic-count">15 articles</span>
+              <span className="topic-count gradient-text">15 articles</span>
             </div>
-            <div className="topic-card">
+            <div className="topic-card glass-card hover-float slide-up delay-200">
               <div className="topic-icon">
-                <i className="fas fa-graduation-cap"></i>
+                <i className="fas fa-graduation-cap gradient-text"></i>
               </div>
               <h3>Training & Education</h3>
               <p>Training programs, certification guides, and skill development</p>
-              <span className="topic-count">21 articles</span>
+              <span className="topic-count gradient-text">21 articles</span>
             </div>
-            <div className="topic-card">
+            <div className="topic-card glass-card hover-float slide-up delay-300">
               <div className="topic-icon">
-                <i className="fas fa-chart-line"></i>
+                <i className="fas fa-chart-line gradient-text"></i>
               </div>
               <h3>Industry Trends</h3>
               <p>Latest trends, technology innovations, and market insights</p>
-              <span className="topic-count">12 articles</span>
+              <span className="topic-count gradient-text">12 articles</span>
             </div>
-            <div className="topic-card">
+            <div className="topic-card glass-card hover-float slide-up delay-300">
               <div className="topic-icon">
-                <i className="fas fa-gavel"></i>
+                <i className="fas fa-gavel gradient-text"></i>
               </div>
               <h3>Regulatory Updates</h3>
               <p>New regulations, compliance requirements, and legal updates</p>
-              <span className="topic-count">16 articles</span>
+              <span className="topic-count gradient-text">16 articles</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Call to Action */}
-      <section className="blog-cta section">
+      <section className="blog-cta section scale-in delay-200">
         <div className="container">
-          <div className="cta-content text-center">
-            <h2>Need Expert Consultation?</h2>
+          <div className="cta-content text-center glass-panel" style={{ borderRadius: '15px' }}>
+            <h2 className="gradient-text">Need Expert Consultation?</h2>
             <p>Have questions about any of our topics? Our experts are here to help with personalized advice and solutions.</p>
-            <div className="cta-actions">
-              <Link to="/contact" className="btn btn-primary btn-lg">
+            <div className="cta-actions" style={{ marginTop: '20px' }}>
+              <Link to="/contact" className="btn btn-primary btn-lg hover-float">
                 Contact Our Experts
               </Link>
-              <Link to="/services" className="btn btn-secondary btn-lg">
+              <Link to="/services" className="btn btn-secondary btn-lg hover-float">
                 View Our Services
               </Link>
             </div>

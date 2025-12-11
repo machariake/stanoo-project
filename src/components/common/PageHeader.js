@@ -12,10 +12,10 @@ const PageHeader = ({ title, subtitle, backgroundImage, breadcrumb }) => {
         <div className="page-header" style={bgStyle}>
             <div className="container">
                 <div className="page-header-content">
-                    <h1 className="page-title fade-in">{title}</h1>
-                    {subtitle && <p className="page-subtitle fade-in">{subtitle}</p>}
+                    <h1 className="page-title slide-up">{title}</h1>
+                    {subtitle && <p className="page-subtitle slide-up delay-100">{subtitle}</p>}
 
-                    <div className="breadcrumb fade-in">
+                    <div className="breadcrumb slide-up delay-200">
                         <Link to="/">Home</Link>
                         <span className="separator">/</span>
                         <span className="current">{breadcrumb || title}</span>

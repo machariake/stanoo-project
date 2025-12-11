@@ -204,6 +204,61 @@ const SettingsManager = () => {
                     </div>
                 </div>
 
+                <div className="form-section" style={{ marginBottom: '30px', background: '#f0f9ff', padding: '20px', borderRadius: '8px', border: '1px solid #bae6fd' }}>
+                    <h3 style={{ borderBottom: '1px solid #bae6fd', paddingBottom: '10px', marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
+                        <span style={{ fontSize: '1.5rem', marginRight: '10px' }}>🎄</span> Seasonal Settings
+                    </h3>
+
+                    <div className="checkbox-group" style={{ marginBottom: '15px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                            <input
+                                type="checkbox"
+                                name="christmasMode"
+                                checked={settings.christmasMode || false}
+                                onChange={(e) => setSettings(prev => ({ ...prev, christmasMode: e.target.checked }))}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }}
+                            />
+                            <strong>Enable Christmas Mode (Snow Effect)</strong>
+                        </label>
+                        <p style={{ marginLeft: '30px', fontSize: '0.9rem', color: '#666' }}>
+                            Adds falling snow animation to the entire website for a festive feel.
+                        </p>
+                    </div>
+
+                    <div className="checkbox-group" style={{ marginBottom: '15px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                            <input
+                                type="checkbox"
+                                name="christmasMusic"
+                                checked={settings.christmasMusic || false}
+                                onChange={(e) => setSettings(prev => ({ ...prev, christmasMusic: e.target.checked }))}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }}
+                            />
+                            <strong>Enable Christmas Music</strong>
+                        </label>
+                        <p style={{ marginLeft: '30px', fontSize: '0.9rem', color: '#666' }}>
+                            Plays background holiday music. Visitors can mute/unmute.
+                        </p>
+                    </div>
+
+                    {settings.christmasMusic && (
+                        <div className="form-group" style={{ marginLeft: '30px' }}>
+                            <label>Music URL (Optional)</label>
+                            <input
+                                type="text"
+                                name="christmasMusicUrl"
+                                value={settings.christmasMusicUrl || ''}
+                                onChange={handleChange}
+                                className="form-control"
+                                placeholder="Enter public URL for audio file (mp3/ogg)"
+                            />
+                            <small className="text-gray" style={{ display: 'block', marginTop: '5px', color: '#666' }}>
+                                Leave empty to use the default "Jingle Bells" tune.
+                            </small>
+                        </div>
+                    )}
+                </div>
+
                 <div className="form-actions">
                     <button type="submit" className="btn btn-primary" disabled={saving}>
                         {saving ? 'Saving...' : 'Save All Settings'}
