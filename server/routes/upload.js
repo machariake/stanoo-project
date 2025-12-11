@@ -25,39 +25,72 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
-// Helper to upload a single file to Firebase
+// Helper to upload a single file to Firebase with fallback for bucket domains
 const uploadToFirebase = async (file) => {
-    // Robustly get bucket name: strip gs:// if present
     let bucketName = process.env.FIREBASE_STORAGE_BUCKET || '';
-    bucketName = bucketName.replace('gs://', '');
+    bucketName = bucketName.replace('gs://', '').trim();
 
-    const bucket = admin.storage().bucket(bucketName);
-    // Create unique filename
-    const filename = `uploads/${Date.now()}-${file.originalname}`;
-    const fileUpload = bucket.file(filename);
+    // Helper to perform the actual upload stream
+    const performUpload = (bName) => {
+        return new Promise((resolve, reject) => {
+            const bucket = admin.storage().bucket(bName);
+            const filename = `uploads/${Date.now()}-${file.originalname}`;
+            const fileUpload = bucket.file(filename);
 
-    const blobStream = fileUpload.createWriteStream({
-        metadata: {
-            contentType: file.mimetype
-        }
-    });
-
-    return new Promise((resolve, reject) => {
-        blobStream.on('error', (error) => {
-            reject(error);
-        });
-
-        blobStream.on('finish', async () => {
-            // Generate Signed URL (Works with Uniform Bucket Access)
-            const [url] = await fileUpload.getSignedUrl({
-                action: 'read',
-                expires: '03-09-2491' // Far future date
+            const blobStream = fileUpload.createWriteStream({
+                metadata: {
+                    contentType: file.mimetype
+                }
             });
-            resolve(url);
-        });
 
-        blobStream.end(file.buffer);
-    });
+            blobStream.on('error', (error) => {
+                reject(error);
+            });
+
+            blobStream.on('finish', async () => {
+                try {
+                    // Generate Signed URL
+                    const [url] = await fileUpload.getSignedUrl({
+                        action: 'read',
+                        expires: '03-09-2491'
+                    });
+                    resolve(url);
+                } catch (signError) {
+                    reject(signError);
+                }
+            });
+
+            blobStream.end(file.buffer);
+        });
+    };
+
+    try {
+        console.log(`Attempting upload to bucket: ${bucketName}`);
+        return await performUpload(bucketName);
+    } catch (error) {
+        // If 'Not Found' (404), try the alternative domain
+        if (error.code === 404 || error.message.includes('Not Found')) {
+            console.warn(`⚠️ Bucket ${bucketName} not found. Trying alternative domain...`);
+
+            let altBucketName = '';
+            if (bucketName.includes('firebasestorage.app')) {
+                altBucketName = bucketName.replace('firebasestorage.app', 'appspot.com');
+            } else if (bucketName.includes('appspot.com')) {
+                altBucketName = bucketName.replace('appspot.com', 'firebasestorage.app');
+            }
+
+            if (altBucketName && altBucketName !== bucketName) {
+                console.log(`Retrying upload to alternate bucket: ${altBucketName}`);
+                try {
+                    return await performUpload(altBucketName);
+                } catch (retryError) {
+                    console.error(`❌ Retry failed: ${retryError.message}`);
+                    throw new Error(`Bucket '${bucketName}' (and fallback '${altBucketName}') not found. Please verify FIREBASE_STORAGE_BUCKET in Render settings.`);
+                }
+            }
+        }
+        throw error;
+    }
 };
 
 // POST single upload endpoint
