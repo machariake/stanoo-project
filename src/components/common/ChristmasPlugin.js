@@ -51,26 +51,38 @@ const ChristmasPlugin = () => {
         }
     }, [musicEnabled, enabled, isMuted, musicUrl]);
 
-    // Attempt to autoplay on first user interaction if blocked
+
+
+    // Robust autoplay strategy
     useEffect(() => {
         const handleUserInteraction = () => {
-            if (musicEnabled && enabled && audioRef.current && !isPlaying && !isMuted) {
+            // If audio exists and is paused, try to play
+            if (audioRef.current && audioRef.current.paused) {
                 audioRef.current.play().then(() => {
                     setIsPlaying(true);
-                }).catch(() => {
-                    // Still blocked or failed
+                    // Once successful, we can remove these listeners
+                    window.removeEventListener('click', handleUserInteraction);
+                    window.removeEventListener('keydown', handleUserInteraction);
+                    window.removeEventListener('touchstart', handleUserInteraction);
+                }).catch((e) => {
+                    // Autoplay still blocked or failed
                 });
             }
         };
 
-        window.addEventListener('click', handleUserInteraction);
-        window.addEventListener('keydown', handleUserInteraction);
+        // Add listeners if we want music but it's not playing yet
+        if (musicEnabled && enabled && !isPlaying) {
+            window.addEventListener('click', handleUserInteraction);
+            window.addEventListener('keydown', handleUserInteraction);
+            window.addEventListener('touchstart', handleUserInteraction);
+        }
 
         return () => {
             window.removeEventListener('click', handleUserInteraction);
             window.removeEventListener('keydown', handleUserInteraction);
+            window.removeEventListener('touchstart', handleUserInteraction);
         };
-    }, [musicEnabled, enabled, isPlaying, isMuted]);
+    }, [musicEnabled, enabled, isPlaying]);
 
     const toggleMute = () => {
         setIsMuted(!isMuted);
@@ -90,7 +102,7 @@ const ChristmasPlugin = () => {
             {/* Music Control - Only if music is enabled globally */}
             {musicEnabled && (
                 <div className="christmas-music-control">
-                    <audio ref={audioRef} loop src={musicUrl} />
+                    <audio ref={audioRef} loop src={musicUrl} autoPlay />
                     <button
                         onClick={toggleMute}
                         className={`music-btn ${isMuted || !isPlaying ? 'muted' : ''}`}
