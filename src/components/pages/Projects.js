@@ -1,5 +1,10 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+import SEO from '../common/SEO';
+import PageHeader from '../common/PageHeader';
 import config from '../../config';
+import './Projects.css';
 
 const Projects = () => {
     const [projects, setProjects] = useState([]);
