@@ -13,7 +13,7 @@ const PostForm = () => {
         author: '',
         category: '',
         readTime: '',
-        image: 'post-default',
+        imageUrl: 'post-default',
         date: new Date().toISOString().split('T')[0]
     });
     const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ const PostForm = () => {
     };
 
     const handleImageUpload = (url) => {
-        setFormData(prev => ({ ...prev, image: url }));
+        setFormData(prev => ({ ...prev, imageUrl: url }));
     };
 
     const handleSubmit = async (e) => {
@@ -141,7 +141,7 @@ const PostForm = () => {
                 </div>
 
                 <ImageUpload
-                    currentImage={formData.image}
+                    currentImage={formData.imageUrl}
                     onImageUpload={handleImageUpload}
                     label="Featured Image"
                 />

@@ -42,7 +42,7 @@ router.get('/:id', async (req, res) => {
 
 // POST new post (Protected)
 router.post('/', async (req, res) => {
-    const { title, excerpt, content, author, category, readTime, image, date } = req.body;
+    const { title, excerpt, content, author, category, readTime, imageUrl, date } = req.body;
 
     const newPost = {
         title,
@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
         author,
         category,
         readTime,
-        image: image || 'post-default',
+        imageUrl: imageUrl || 'post-default',
         date: date || new Date().toISOString().split('T')[0],
         createdAt: new Date().toISOString()
     };
