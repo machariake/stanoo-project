@@ -28,6 +28,8 @@ import './styles/global.css';
 
 import { ToastProvider } from './context/ToastContext';
 
+import PublicLayout from './components/common/PublicLayout';
+
 function App() {
   return (
     <ToastProvider>
@@ -35,8 +37,10 @@ function App() {
         <ScrollToTop /> {/* Adds scroll recovery on route change & the button */}
         <WhatsAppWidget /> {/* Floating WhatsApp Button */}
         <CookieConsent /> {/* Cookie Consent Banner */}
-        <Layout>
-          <Routes>
+
+        <Routes>
+          {/* Public Routes - Wrapped in PublicLayout (Header/Footer) */}
+          <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
@@ -45,75 +49,75 @@ function App() {
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          </Route>
 
-            {/* Admin Routes */}
-            <Route path="/login" element={<Login />} />
+          {/* Catch-all Route for 404 - Wrapped in PublicLayout */}
+          <Route path="*" element={<PublicLayout><NotFound /></PublicLayout>} />
 
-            <Route path="/admin" element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            } />
+          {/* Admin Routes - Standalone (No Header/Footer) */}
+          <Route path="/login" element={<Login />} />
 
-            <Route path="/admin/create" element={
-              <ProtectedRoute>
-                <PostForm />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/edit/:id" element={
-              <ProtectedRoute>
-                <PostForm />
-              </ProtectedRoute>
-            } />
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
 
-            <Route path="/admin/projects/create" element={
-              <ProtectedRoute>
-                <ProjectForm />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/projects/edit/:id" element={
-              <ProtectedRoute>
-                <ProjectForm />
-              </ProtectedRoute>
-            } />
+          <Route path="/admin/create" element={
+            <ProtectedRoute>
+              <PostForm />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/edit/:id" element={
+            <ProtectedRoute>
+              <PostForm />
+            </ProtectedRoute>
+          } />
 
-            <Route path="/admin/services/create" element={
-              <ProtectedRoute>
-                <ServiceForm />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/services/edit/:id" element={
-              <ProtectedRoute>
-                <ServiceForm />
-              </ProtectedRoute>
-            } />
+          <Route path="/admin/projects/create" element={
+            <ProtectedRoute>
+              <ProjectForm />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/projects/edit/:id" element={
+            <ProtectedRoute>
+              <ProjectForm />
+            </ProtectedRoute>
+          } />
 
-            <Route path="/admin/testimonials/create" element={
-              <ProtectedRoute>
-                <TestimonialForm />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/testimonials/edit/:id" element={
-              <ProtectedRoute>
-                <TestimonialForm />
-              </ProtectedRoute>
-            } />
+          <Route path="/admin/services/create" element={
+            <ProtectedRoute>
+              <ServiceForm />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/services/edit/:id" element={
+            <ProtectedRoute>
+              <ServiceForm />
+            </ProtectedRoute>
+          } />
 
-            <Route path="/admin/team/create" element={
-              <ProtectedRoute>
-                <TeamForm />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/team/edit/:id" element={
-              <ProtectedRoute>
-                <TeamForm />
-              </ProtectedRoute>
-            } />
+          <Route path="/admin/testimonials/create" element={
+            <ProtectedRoute>
+              <TestimonialForm />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/testimonials/edit/:id" element={
+            <ProtectedRoute>
+              <TestimonialForm />
+            </ProtectedRoute>
+          } />
 
-            {/* Catch-all Route for 404 */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Layout>
+          <Route path="/admin/team/create" element={
+            <ProtectedRoute>
+              <TeamForm />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/team/edit/:id" element={
+            <ProtectedRoute>
+              <TeamForm />
+            </ProtectedRoute>
+          } />
+        </Routes>
       </Router>
     </ToastProvider>
   );

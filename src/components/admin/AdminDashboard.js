@@ -21,204 +21,99 @@ const AdminDashboard = () => {
     };
 
     return (
-        <div className="admin-container">
-            <div className="admin-header-main" style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '30px',
-                borderBottom: '2px solid #2d5f3f',
-                paddingBottom: '20px'
-            }}>
-                <div>
-                    <h1 style={{ color: '#2d5f3f', margin: 0 }}>Content Management System</h1>
-                    <p style={{ margin: '5px 0 0 0', color: '#666' }}>Theuri Green Health Safe</p>
-                </div>
-                <div>
-                    <a href="https://stanoo-frontend.onrender.com" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ marginRight: '10px' }}>
-                        View Live Site
-                    </a>
-                    <button onClick={handleLogout} className="btn btn-secondary" style={{ background: '#dc3545', borderColor: '#dc3545', color: 'white' }}>
-                        Logout
-                    </button>
-                </div>
-            </div>
+    return (
+        <div className="admin-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            {/* Top Bar (Mobile/Header) - Optional, can be merged but keeping separate for now */}
 
-            <div className="admin-tabs" style={{ display: 'flex', marginBottom: '30px', borderBottom: '1px solid #ddd', overflowX: 'auto' }}>
-                <button
-                    className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('overview')}
-                    style={{
-                        padding: '12px 20px',
-                        background: 'none',
-                        border: 'none',
-                        borderBottom: activeTab === 'overview' ? '3px solid #2d5f3f' : '3px solid transparent',
-                        color: activeTab === 'overview' ? '#2d5f3f' : '#666',
-                        fontWeight: activeTab === 'overview' ? 'bold' : 'normal',
-                        cursor: 'pointer',
-                        fontSize: '15px',
-                        whiteSpace: 'nowrap'
-                    }}
-                >
-                    <i className="fas fa-home" style={{ marginRight: '8px' }}></i>
-                    Overview
-                </button>
-                <button
-                    className={`tab-btn ${activeTab === 'posts' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('posts')}
-                    style={{
-                        padding: '12px 20px',
-                        background: 'none',
-                        border: 'none',
-                        borderBottom: activeTab === 'posts' ? '3px solid #2d5f3f' : '3px solid transparent',
-                        color: activeTab === 'posts' ? '#2d5f3f' : '#666',
-                        fontWeight: activeTab === 'posts' ? 'bold' : 'normal',
-                        cursor: 'pointer',
-                        fontSize: '15px',
-                        whiteSpace: 'nowrap'
-                    }}
-                >
-                    <i className="fas fa-newspaper" style={{ marginRight: '8px' }}></i>
-                    Blog
-                </button>
-                <button
-                    className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('projects')}
-                    style={{
-                        padding: '12px 20px',
-                        background: 'none',
-                        border: 'none',
-                        borderBottom: activeTab === 'projects' ? '3px solid #2d5f3f' : '3px solid transparent',
-                        color: activeTab === 'projects' ? '#2d5f3f' : '#666',
-                        fontWeight: activeTab === 'projects' ? 'bold' : 'normal',
-                        cursor: 'pointer',
-                        fontSize: '15px',
-                        whiteSpace: 'nowrap'
-                    }}
-                >
-                    <i className="fas fa-briefcase" style={{ marginRight: '8px' }}></i>
-                    Projects
-                </button>
-                <button
-                    className={`tab-btn ${activeTab === 'services' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('services')}
-                    style={{
-                        padding: '12px 20px',
-                        background: 'none',
-                        border: 'none',
-                        borderBottom: activeTab === 'services' ? '3px solid #2d5f3f' : '3px solid transparent',
-                        color: activeTab === 'services' ? '#2d5f3f' : '#666',
-                        fontWeight: activeTab === 'services' ? 'bold' : 'normal',
-                        cursor: 'pointer',
-                        fontSize: '15px',
-                        whiteSpace: 'nowrap'
-                    }}
-                >
-                    <i className="fas fa-tools" style={{ marginRight: '8px' }}></i>
-                    Services
-                </button>
-                <button
-                    className={`tab-btn ${activeTab === 'testimonials' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('testimonials')}
-                    style={{
-                        padding: '12px 20px',
-                        background: 'none',
-                        border: 'none',
-                        borderBottom: activeTab === 'testimonials' ? '3px solid #2d5f3f' : '3px solid transparent',
-                        color: activeTab === 'testimonials' ? '#2d5f3f' : '#666',
-                        fontWeight: activeTab === 'testimonials' ? 'bold' : 'normal',
-                        cursor: 'pointer',
-                        fontSize: '15px',
-                        whiteSpace: 'nowrap'
-                    }}
-                >
-                    <i className="fas fa-comment-alt" style={{ marginRight: '8px' }}></i>
-                    Testimonials
-                </button>
-                <button
-                    className={`tab-btn ${activeTab === 'team' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('team')}
-                    style={{
-                        padding: '12px 20px',
-                        background: 'none',
-                        border: 'none',
-                        borderBottom: activeTab === 'team' ? '3px solid #2d5f3f' : '3px solid transparent',
-                        color: activeTab === 'team' ? '#2d5f3f' : '#666',
-                        fontWeight: activeTab === 'team' ? 'bold' : 'normal',
-                        cursor: 'pointer',
-                        fontSize: '15px',
-                        whiteSpace: 'nowrap'
-                    }}
-                >
-                    <i className="fas fa-users" style={{ marginRight: '8px' }}></i>
-                    Team
-                </button>
-                <button
-                    className={`tab-btn ${activeTab === 'messages' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('messages')}
-                    style={{
-                        padding: '12px 20px',
-                        background: 'none',
-                        border: 'none',
-                        borderBottom: activeTab === 'messages' ? '3px solid #2d5f3f' : '3px solid transparent',
-                        color: activeTab === 'messages' ? '#2d5f3f' : '#666',
-                        fontWeight: activeTab === 'messages' ? 'bold' : 'normal',
-                        cursor: 'pointer',
-                        fontSize: '15px',
-                        whiteSpace: 'nowrap'
-                    }}
-                >
-                    <i className="fas fa-inbox" style={{ marginRight: '8px' }}></i>
-                    Messages
-                </button>
-                <button
-                    className={`tab-btn ${activeTab === 'subscribers' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('subscribers')}
-                    style={{
-                        padding: '12px 20px',
-                        background: 'none',
-                        border: 'none',
-                        borderBottom: activeTab === 'subscribers' ? '3px solid #2d5f3f' : '3px solid transparent',
-                        color: activeTab === 'subscribers' ? '#2d5f3f' : '#666',
-                        fontWeight: activeTab === 'subscribers' ? 'bold' : 'normal',
-                        cursor: 'pointer',
-                        fontSize: '15px',
-                        whiteSpace: 'nowrap'
-                    }}
-                >
-                    <i className="fas fa-envelope-open-text" style={{ marginRight: '8px' }}></i>
-                    Subscribers
-                </button>
-                <button
-                    className={`tab-btn ${activeTab === 'settings' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('settings')}
-                    style={{
-                        padding: '12px 20px',
-                        background: 'none',
-                        border: 'none',
-                        borderBottom: activeTab === 'settings' ? '3px solid #2d5f3f' : '3px solid transparent',
-                        color: activeTab === 'settings' ? '#2d5f3f' : '#666',
-                        fontWeight: activeTab === 'settings' ? 'bold' : 'normal',
-                        cursor: 'pointer',
-                        fontSize: '15px',
-                        whiteSpace: 'nowrap'
-                    }}
-                >
-                    <i className="fas fa-cogs" style={{ marginRight: '8px' }}></i>
-                    Settings
-                </button>
-            </div>
+            <div className="admin-layout" style={{ display: 'flex', flex: 1 }}>
 
-            <div className="admin-content">
-                {activeTab === 'overview' && <DashboardOverview setActiveTab={setActiveTab} />}
-                {activeTab === 'posts' && <PostsManager />}
-                {activeTab === 'projects' && <ProjectsManager />}
-                {activeTab === 'services' && <ServicesManager />}
-                {activeTab === 'testimonials' && <TestimonialsManager />}
-                {activeTab === 'team' && <TeamManager />}
-                {activeTab === 'settings' && <SettingsManager />}
-                {activeTab === 'messages' && <MessagesManager />}
-                {activeTab === 'subscribers' && <SubscribersManager />}
+                {/* Sidebar */}
+                <aside className="admin-sidebar" style={{
+                    width: '260px',
+                    background: '#1a1c23',
+                    color: '#fff',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: '20px 0',
+                    boxShadow: '2px 0 10px rgba(0,0,0,0.1)',
+                    position: 'sticky',
+                    top: 0,
+                    height: '100vh',
+                    overflowY: 'auto'
+                }}>
+                    <div className="sidebar-header" style={{ padding: '0 20px 20px', borderBottom: '1px solid #333', marginBottom: '20px' }}>
+                        <h2 style={{ color: '#fff', fontSize: '1.2rem', margin: 0 }}>TGHS Admin</h2>
+                        <p style={{ color: '#888', fontSize: '0.8rem', margin: '5px 0 0' }}>Content Management</p>
+                    </div>
+
+                    <nav className="sidebar-nav" style={{ flex: 1 }}>
+                        {[
+                            { id: 'overview', icon: 'home', label: 'Overview' },
+                            { id: 'posts', icon: 'newspaper', label: 'Blog Posts' },
+                            { id: 'projects', icon: 'briefcase', label: 'Projects' },
+                            { id: 'services', icon: 'tools', label: 'Services' },
+                            { id: 'testimonials', icon: 'comment-alt', label: 'Testimonials' },
+                            { id: 'team', icon: 'users', label: 'Team Members' },
+                            { id: 'messages', icon: 'inbox', label: 'Messages' },
+                            { id: 'subscribers', icon: 'envelope-open-text', label: 'Subscribers' },
+                            { id: 'settings', icon: 'cogs', label: 'Settings' },
+                        ].map(item => (
+                            <button
+                                key={item.id}
+                                onClick={() => setActiveTab(item.id)}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    width: '100%',
+                                    padding: '12px 20px',
+                                    background: activeTab === item.id ? '#2d5f3f' : 'transparent',
+                                    color: activeTab === item.id ? '#fff' : '#aaa',
+                                    border: 'none',
+                                    borderLeft: activeTab === item.id ? '4px solid #4ade80' : '4px solid transparent',
+                                    cursor: 'pointer',
+                                    textAlign: 'left',
+                                    fontSize: '0.95rem',
+                                    transition: 'all 0.2s'
+                                }}
+                                className="sidebar-btn"
+                            >
+                                <i className={`fas fa-${item.icon}`} style={{ width: '25px', textAlign: 'center', marginRight: '10px' }}></i>
+                                {item.label}
+                            </button>
+                        ))}
+                    </nav>
+
+                    <div className="sidebar-footer" style={{ padding: '20px', borderTop: '1px solid #333' }}>
+                        <button onClick={handleLogout} className="btn" style={{ width: '100%', background: '#374151', color: '#fff', border: '1px solid #4b5563' }}>
+                            <i className="fas fa-sign-out-alt" style={{ marginRight: '8px' }}></i> Logout
+                        </button>
+                    </div>
+                </aside>
+
+                {/* Main Content */}
+                <main className="admin-main" style={{ flex: 1, background: '#f8f9fa', padding: '30px', overflowY: 'auto' }}>
+
+                    <div className="admin-topbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
+                        <h2 style={{ margin: 0, color: '#333' }}>
+                            {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+                        </h2>
+                        <a href="https://stanoo-frontend.onrender.com" target="_blank" rel="noreferrer" className="btn btn-outline btn-sm">
+                            <i className="fas fa-external-link-alt" style={{ marginRight: '5px' }}></i> View Live Site
+                        </a>
+                    </div>
+
+                    <div className="content-wrapper" style={{ background: '#fff', borderRadius: '8px', padding: '25px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
+                        {activeTab === 'overview' && <DashboardOverview setActiveTab={setActiveTab} />}
+                        {activeTab === 'posts' && <PostsManager />}
+                        {activeTab === 'projects' && <ProjectsManager />}
+                        {activeTab === 'services' && <ServicesManager />}
+                        {activeTab === 'testimonials' && <TestimonialsManager />}
+                        {activeTab === 'team' && <TeamManager />}
+                        {activeTab === 'settings' && <SettingsManager />}
+                        {activeTab === 'messages' && <MessagesManager />}
+                        {activeTab === 'subscribers' && <SubscribersManager />}
+                    </div>
+                </main>
             </div>
         </div>
     );
