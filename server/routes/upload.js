@@ -44,11 +44,12 @@ const uploadToFirebase = async (file) => {
         });
 
         blobStream.on('finish', async () => {
-            // Make the file public
-            await fileUpload.makePublic();
-            // Get public URL
-            const publicUrl = `https://storage.googleapis.com/${bucket.name}/${filename}`;
-            resolve(publicUrl);
+            // Generate Signed URL (Works with Uniform Bucket Access)
+            const [url] = await fileUpload.getSignedUrl({
+                action: 'read',
+                expires: '03-09-2491' // Far future date
+            });
+            resolve(url);
         });
 
         blobStream.end(file.buffer);
