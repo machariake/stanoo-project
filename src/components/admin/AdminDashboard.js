@@ -6,6 +6,7 @@ import TeamManager from './TeamManager';
 import SettingsManager from './SettingsManager';
 import MessagesManager from './MessagesManager';
 import SubscribersManager from './SubscribersManager';
+import ProjectsManager from './ProjectsManager';
 import DashboardOverview from './DashboardOverview'; // Import
 import './Admin.css';
 
@@ -78,6 +79,24 @@ const AdminDashboard = () => {
                 >
                     <i className="fas fa-newspaper" style={{ marginRight: '8px' }}></i>
                     Blog
+                </button>
+                <button
+                    className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('projects')}
+                    style={{
+                        padding: '12px 20px',
+                        background: 'none',
+                        border: 'none',
+                        borderBottom: activeTab === 'projects' ? '3px solid #2d5f3f' : '3px solid transparent',
+                        color: activeTab === 'projects' ? '#2d5f3f' : '#666',
+                        fontWeight: activeTab === 'projects' ? 'bold' : 'normal',
+                        cursor: 'pointer',
+                        fontSize: '15px',
+                        whiteSpace: 'nowrap'
+                    }}
+                >
+                    <i className="fas fa-briefcase" style={{ marginRight: '8px' }}></i>
+                    Projects
                 </button>
                 <button
                     className={`tab-btn ${activeTab === 'services' ? 'active' : ''}`}
@@ -192,6 +211,7 @@ const AdminDashboard = () => {
             <div className="admin-content">
                 {activeTab === 'overview' && <DashboardOverview setActiveTab={setActiveTab} />}
                 {activeTab === 'posts' && <PostsManager />}
+                {activeTab === 'projects' && <ProjectsManager />}
                 {activeTab === 'services' && <ServicesManager />}
                 {activeTab === 'testimonials' && <TestimonialsManager />}
                 {activeTab === 'team' && <TeamManager />}

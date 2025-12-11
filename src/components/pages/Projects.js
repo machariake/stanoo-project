@@ -1,52 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import SEO from '../common/SEO';
-import PageHeader from '../common/PageHeader';
-import './Projects.css';
+import axios from 'axios';
+import config from '../../config';
 
 const Projects = () => {
-    // Static project data for now - could be moved to API later
-    const projects = [
-        {
-            id: 1,
-            title: "Industrial Safety Audit",
-            client: "Kenya Manufacturing Ltd",
-            category: "Auditing",
-            image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80",
-            description: "Complete comprehensive safety audit for a large-scale manufacturing plant in Nairobi industrial area.",
-            results: ["Identified 15 critical hazards", "Improved safety compliance score by 40%", "Trained 200+ employees"]
-        },
-        {
-            id: 2,
-            title: "Environmental Impact Assessment",
-            client: "Green Valley Construction",
-            category: "Environmental",
-            image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80",
-            description: "Conducted full EIA for a proposed mixed-use development project to ensure regulatory compliance.",
-            results: ["NEMA license approved", "Sustainable waste management plan implemented", "Community engagement successful"]
-        },
-        {
-            id: 3,
-            title: "Fire Safety Training",
-            client: "City Business Center",
-            category: "Training",
-            image: "https://images.unsplash.com/photo-1555660893-b6d3c05c0911?auto=format&fit=crop&q=80",
-            description: "Fire safety drills and emergency response training for corporate building occupants.",
-            results: ["All floor marshals certified", "Evacuation time reduced by 50%", "Updated fire safety equipment installed"]
-        },
-        {
-            id: 4,
-            title: "Construction Site Supervision",
-            client: "Skyline Developers",
-            category: "Construction Safety",
-            image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80",
-            description: "Ongoing HSE supervision for high-rise building construction in Westlands.",
-            results: ["Zero lost-time injuries to date", "Weekly toolkit talks implemented", "Strict PPE compliance enforced"]
-        }
-    ];
-
+    const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('All');
-    const categories = ['All', ...new Set(projects.map(p => p.category))];
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const response = await axios.get(`${config.API_URL}/projects`);
+                if (response.data.success) {
+                    setProjects(response.data.projects);
+                }
+            } catch (err) {
+                console.error('Error fetching projects:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProjects();
+    }, []);
+
+    // Extract unique categories dynamically from fetched projects
+    const allCategories = projects.map(p => p.category).filter(Boolean);
+    const categories = ['All', ...new Set(allCategories)];
 
     const filteredProjects = filter === 'All'
         ? projects
@@ -82,32 +60,48 @@ const Projects = () => {
                     </div>
 
                     {/* Projects Grid */}
-                    <div className="projects-grid">
-                        {filteredProjects.map(project => (
-                            <div key={project.id} className="project-card fade-in">
-                                <div className="project-image">
-                                    <img src={project.image} alt={project.title} />
-                                    <div className="project-overlay">
-                                        <span className="project-category">{project.category}</span>
-                                    </div>
-                                </div>
-                                <div className="project-content">
-                                    <h3>{project.title}</h3>
-                                    <p className="client-name"><strong>Client:</strong> {project.client}</p>
-                                    <p className="project-desc">{project.description}</p>
+                    {loading ? (
+                        <div className="loading-container text-center">
+                            <div className="loader"></div>
+                            <p>Loading projects...</p>
+                        </div>
+                    ) : (
+                        <div className="projects-grid">
+                            {filteredProjects.length > 0 ? (
+                                filteredProjects.map(project => (
+                                    <div key={project._id || project.id} className="project-card fade-in">
+                                        <div className="project-image">
+                                            {/* Support both 'imageUrl' (API) and 'image' (legacy/static) */}
+                                            <img src={project.imageUrl || project.image || 'https://via.placeholder.com/400x300?text=Project'} alt={project.title} />
+                                            <div className="project-overlay">
+                                                <span className="project-category">{project.category}</span>
+                                            </div>
+                                        </div>
+                                        <div className="project-content">
+                                            <h3>{project.title}</h3>
+                                            <p className="client-name"><strong>Client:</strong> {project.client}</p>
+                                            <p className="project-desc">{project.description}</p>
 
-                                    <div className="project-results">
-                                        <h4>Key Results:</h4>
-                                        <ul>
-                                            {project.results.map((result, i) => (
-                                                <li key={i}><i className="fas fa-check-circle"></i> {result}</li>
-                                            ))}
-                                        </ul>
+                                            {project.results && project.results.length > 0 && (
+                                                <div className="project-results">
+                                                    <h4>Key Results:</h4>
+                                                    <ul>
+                                                        {project.results.map((result, i) => (
+                                                            <li key={i}><i className="fas fa-check-circle"></i> {result}</li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
+                                ))
+                            ) : (
+                                <div className="no-projects text-center" style={{ gridColumn: '1/-1', padding: '40px' }}>
+                                    <p>No projects found in this category yet.</p>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            )}
+                        </div>
+                    )}
 
                     <div className="text-center mt-4">
                         <Link to="/contact" className="btn btn-primary btn-lg">

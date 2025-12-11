@@ -37,6 +37,9 @@ app.use('/api/testimonials', testimonialsRouter);
 const teamRouter = require('./routes/team');
 app.use('/api/team', teamRouter);
 
+const projectsRouter = require('./routes/projects');
+app.use('/api/projects', projectsRouter);
+
 const settingsRouter = require('./routes/settings');
 app.use('/api/settings', settingsRouter);
 

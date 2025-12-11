@@ -20,6 +20,7 @@ import PostForm from './components/admin/PostForm';
 import ServiceForm from './components/admin/ServiceForm';
 import TestimonialForm from './components/admin/TestimonialForm';
 import TeamForm from './components/admin/TeamForm';
+import ProjectForm from './components/admin/ProjectForm';
 import Login from './components/admin/Login';
 import ProtectedRoute from './components/admin/ProtectedRoute';
 
@@ -62,6 +63,17 @@ function App() {
             <Route path="/admin/edit/:id" element={
               <ProtectedRoute>
                 <PostForm />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/admin/projects/create" element={
+              <ProtectedRoute>
+                <ProjectForm />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/projects/edit/:id" element={
+              <ProtectedRoute>
+                <ProjectForm />
               </ProtectedRoute>
             } />
 
