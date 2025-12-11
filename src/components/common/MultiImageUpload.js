@@ -57,7 +57,8 @@ const MultiImageUpload = ({ currentImages = [], onImagesUpdate, label = "Gallery
             }
         } catch (err) {
             console.error('Upload error:', err);
-            setError('Failed to upload images. Ensure server is running and storage is configured.');
+            const msg = err.response?.data?.message || 'Failed to upload images. Ensure server is running and storage is configured.';
+            setError(msg);
         } finally {
             setUploading(false);
             // Clear input

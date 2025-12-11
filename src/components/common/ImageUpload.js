@@ -55,7 +55,8 @@ const ImageUpload = ({ currentImage, onImageUpload, label = "Image" }) => {
             }
         } catch (err) {
             console.error('Upload error:', err);
-            setError('Failed to upload image. Please ensure server is running.');
+            const msg = err.response?.data?.message || 'Failed to upload image. Please ensure server is running.';
+            setError(msg);
             setPreview(currentImage);
         } finally {
             setUploading(false);

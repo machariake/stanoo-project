@@ -27,7 +27,11 @@ const upload = multer({
 
 // Helper to upload a single file to Firebase
 const uploadToFirebase = async (file) => {
-    const bucket = admin.storage().bucket();
+    // Robustly get bucket name: strip gs:// if present
+    let bucketName = process.env.FIREBASE_STORAGE_BUCKET || '';
+    bucketName = bucketName.replace('gs://', '');
+
+    const bucket = admin.storage().bucket(bucketName);
     // Create unique filename
     const filename = `uploads/${Date.now()}-${file.originalname}`;
     const fileUpload = bucket.file(filename);
