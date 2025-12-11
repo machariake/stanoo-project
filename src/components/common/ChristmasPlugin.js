@@ -41,7 +41,7 @@ const ChristmasPlugin = () => {
             if (playPromise !== undefined) {
                 playPromise.then(() => {
                     setIsPlaying(true);
-                }).catch(error => {
+                }).catch(() => {
                     console.log("Autoplay prevented. User interaction needed.");
                     setIsPlaying(false); // Show play button
                 });

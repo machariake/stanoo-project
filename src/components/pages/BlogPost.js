@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import SEO from '../common/SEO';
 import SocialShare from '../common/SocialShare';
@@ -9,7 +9,6 @@ import './BlogPost.css';
 
 const BlogPost = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
