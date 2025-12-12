@@ -21,7 +21,6 @@ const AdminDashboard = () => {
     };
 
     return (
-    return (
         <div className="admin-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             {/* Top Bar (Mobile/Header) - Optional, can be merged but keeping separate for now */}
 
