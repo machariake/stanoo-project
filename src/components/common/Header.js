@@ -88,6 +88,24 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <Link
+                  to="/training"
+                  className={`nav-link ${isActive('/training')}`}
+                  onClick={closeMenu}
+                >
+                  Training
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  to="/resources"
+                  className={`nav-link ${isActive('/resources')}`}
+                  onClick={closeMenu}
+                >
+                  Resources
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
                   to="/blog"
                   className={`nav-link ${isActive('/blog')}`}
                   onClick={closeMenu}

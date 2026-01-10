@@ -3,20 +3,46 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SEO from '../common/SEO';
 import config from '../../config';
+import { localServices } from '../../data/localServices';
 import './Home.css';
 
 const Home = () => {
   const [services, setServices] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
+  const [content, setContent] = useState({
+    home: {
+      heroTitle: 'Creating Safer Workplaces for a',
+      heroSubtitle: 'Leading provider of comprehensive health, safety, and environmental management services. We help organizations minimize risks, ensure compliance, and build sustainable business practices.',
+      heroButtonText: 'Our Services',
+      welcomeTitle: 'Welcome to Theuri Green Health Safe', // Used elsewhere if needed
+    }
+  });
 
   useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await axios.get(`${config.API_URL}/content`);
+        if (response.data.content) {
+          // Merge with defaults to prevent crashes if fields are missing
+          setContent(prev => ({
+            ...prev,
+            ...response.data.content
+          }));
+        }
+      } catch (err) {
+        console.error('Error fetching site content:', err);
+      }
+    };
+
     const fetchServices = async () => {
       try {
         const response = await axios.get(`${config.API_URL}/services`);
-        const sorted = response.data.services.sort((a, b) => a.order - b.order);
+        const combinedServices = [...response.data.services, ...localServices];
+        const sorted = combinedServices.sort((a, b) => a.order - b.order);
         setServices(sorted);
       } catch (err) {
         console.error('Error fetching services:', err);
+        setServices(localServices);
       }
     };
 
@@ -30,6 +56,7 @@ const Home = () => {
       }
     };
 
+    fetchContent();
     fetchServices();
     fetchTestimonials();
   }, []);
@@ -49,13 +76,11 @@ const Home = () => {
           <div className="hero-content">
             <div className="hero-text slide-up delay-100">
               <h1 className="hero-title">
-                Creating Safer Workplaces for a
-                <span className="highlight gradient-text"> Sustainable Future</span>
+                {content.home.heroTitle.replace('Sustainable Future', '')}
+                <span className="highlight gradient-text"> {content.home.heroTitle.includes('Sustainable Future') ? 'Sustainable Future' : ''}</span>
               </h1>
               <p className="hero-description slide-up delay-200">
-                Leading provider of comprehensive health, safety, and environmental
-                management services. We help organizations minimize risks, ensure
-                compliance, and build sustainable business practices.
+                {content.home.heroSubtitle}
               </p>
               <div className="hero-actions slide-up delay-300">
                 <Link to="/services" className="btn btn-primary btn-lg hover-float">
@@ -217,7 +242,7 @@ const Home = () => {
               <Link to="/contact" className="btn btn-primary btn-lg hover-float">
                 Get Free Consultation
               </Link>
-              <a href="tel:+254700000000" className="btn btn-secondary btn-lg hover-float">
+              <a href="tel:+254743937257" className="btn btn-secondary btn-lg hover-float">
                 <i className="fas fa-phone"></i> Call Now
               </a>
             </div>

@@ -9,6 +9,7 @@ import MessagesManager from './MessagesManager';
 import SubscribersManager from './SubscribersManager';
 import ProjectsManager from './ProjectsManager';
 import DashboardOverview from './DashboardOverview'; // Import
+import ContentManager from './ContentManager';
 import './Admin.css';
 
 const AdminDashboard = () => {
@@ -48,6 +49,7 @@ const AdminDashboard = () => {
                     <nav className="sidebar-nav" style={{ flex: 1 }}>
                         {[
                             { id: 'overview', icon: 'home', label: 'Overview' },
+                            { id: 'content', icon: 'edit', label: 'Page Content (CMS)' },
                             { id: 'posts', icon: 'newspaper', label: 'Blog Posts' },
                             { id: 'projects', icon: 'briefcase', label: 'Projects' },
                             { id: 'services', icon: 'tools', label: 'Services' },
@@ -103,6 +105,7 @@ const AdminDashboard = () => {
 
                     <div className="content-wrapper" style={{ background: '#fff', borderRadius: '8px', padding: '25px', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
                         {activeTab === 'overview' && <DashboardOverview setActiveTab={setActiveTab} />}
+                        {activeTab === 'content' && <ContentManager />}
                         {activeTab === 'posts' && <PostsManager />}
                         {activeTab === 'projects' && <ProjectsManager />}
                         {activeTab === 'services' && <ServicesManager />}

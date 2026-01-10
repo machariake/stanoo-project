@@ -1,0 +1,27 @@
+FIRE EVACUATION PLAN TEMPLATE
+=============================
+
+BUILDING: _______________________
+DATE: ___________________________
+
+1. EMERGENCY CONTACTS
+   - Fire Department: 999 / 112
+   - Safety Officer: _________________
+   - Building Manager: ________________
+
+2. EVACUATION ROUTES
+   - Primary Route: [Describe primary exit path]
+   - Secondary Route: [Describe alternative exit path]
+   - Assembly Point: [Location outside building]
+
+3. ROLES AND RESPONSIBILITIES
+   - Fire Marshal: Ensures everyone leaves the area.
+   - First Aider: Carries the first aid kit.
+   - Roll Caller: Checks attendance at assembly point.
+
+4. DRILL SCHEDULE
+   - Next Drill Date: _________________
+
+Notes:
+- Do not use elevators during a fire.
+- Close doors behind you to slow fire spread.

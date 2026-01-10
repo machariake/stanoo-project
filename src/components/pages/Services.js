@@ -4,6 +4,7 @@ import axios from 'axios';
 import SEO from '../common/SEO';
 import PageHeader from '../common/PageHeader';
 import config from '../../config';
+import { localServices } from '../../data/localServices';
 import './Services.css';
 
 const Services = () => {
@@ -15,11 +16,15 @@ const Services = () => {
     const fetchServices = async () => {
       try {
         const response = await axios.get(`${config.API_URL}/services`);
-        const sorted = response.data.services.sort((a, b) => a.order - b.order);
+        // Merge API services with local services
+        const combinedServices = [...response.data.services, ...localServices];
+        const sorted = combinedServices.sort((a, b) => a.order - b.order);
         setServices(sorted);
         setLoading(false);
       } catch (err) {
         console.error('Error fetching services:', err);
+        // Fallback to local services if API fails
+        setServices(localServices);
         setLoading(false);
       }
     };
@@ -208,7 +213,7 @@ const Services = () => {
               <Link to="/contact" className="btn btn-primary btn-lg hover-float">
                 Request Consultation
               </Link>
-              <a href="tel:+254700000000" className="btn btn-secondary btn-lg hover-float">
+              <a href="tel:+254743937257" className="btn btn-secondary btn-lg hover-float">
                 <i className="fas fa-phone"></i> Call Now
               </a>
             </div>

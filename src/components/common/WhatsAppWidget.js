@@ -4,7 +4,7 @@ import config from '../../config';
 import './WhatsAppWidget.css';
 
 const WhatsAppWidget = () => {
-    const [phoneNumber, setPhoneNumber] = useState('254700000000'); // Default fallback
+    const [phoneNumber, setPhoneNumber] = useState('254743937257'); // Default fallback
 
     useEffect(() => {
         const fetchSettings = async () => {

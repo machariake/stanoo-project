@@ -8,8 +8,30 @@ import './About.css';
 
 const About = () => {
   const [team, setTeam] = useState([]);
+  const [content, setContent] = useState({
+    about: {
+      missionTitle: 'Our Mission',
+      missionText: 'To provide comprehensive health, safety, and environmental management services that protect people, preserve the environment, and promote sustainable business practices across all industries.',
+      visionTitle: 'Our Vision',
+      visionText: 'To be the leading provider of health, safety, and environmental solutions in East Africa, recognized for our expertise, innovation, and commitment to creating a safer, healthier world.'
+    }
+  });
 
   useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await axios.get(`${config.API_URL}/content`);
+        if (response.data.content) {
+          setContent(prev => ({
+            ...prev,
+            ...response.data.content
+          }));
+        }
+      } catch (err) {
+        console.error('Error fetching site content:', err);
+      }
+    };
+
     const fetchTeam = async () => {
       try {
         const response = await axios.get(`${config.API_URL}/team`);
@@ -19,6 +41,8 @@ const About = () => {
         console.error('Error fetching team:', err);
       }
     };
+
+    fetchContent();
     fetchTeam();
   }, []);
 
@@ -43,15 +67,15 @@ const About = () => {
               <div className="mvv-icon text-center">
                 <i className="fas fa-bullseye icon-xl gradient-text"></i>
               </div>
-              <h3 className="text-center">Our Mission</h3>
-              <p className="text-center">To provide comprehensive health, safety, and environmental management services that protect people, preserve the environment, and promote sustainable business practices across all industries.</p>
+              <h3 className="text-center">{content.about.missionTitle || 'Our Mission'}</h3>
+              <p className="text-center">{content.about.missionText}</p>
             </div>
             <div className="mvv-card glass-card slide-up delay-200 hover-float">
               <div className="mvv-icon text-center">
                 <i className="fas fa-eye icon-xl gradient-text"></i>
               </div>
-              <h3 className="text-center">Our Vision</h3>
-              <p className="text-center">To be the leading provider of health, safety, and environmental solutions in East Africa, recognized for our expertise, innovation, and commitment to creating a safer, healthier world.</p>
+              <h3 className="text-center">{content.about.visionTitle || 'Our Vision'}</h3>
+              <p className="text-center">{content.about.visionText}</p>
             </div>
             <div className="mvv-card glass-card slide-up delay-300 hover-float">
               <div className="mvv-icon text-center">

@@ -43,8 +43,20 @@ app.use('/api/projects', projectsRouter);
 const settingsRouter = require('./routes/settings');
 app.use('/api/settings', settingsRouter);
 
+const contentRouter = require('./routes/content');
+app.use('/api/content', contentRouter);
+
 const contactRouter = require('./routes/contact');
 app.use('/api/contact', contactRouter);
+
+const resourcesRouter = require('./routes/resources');
+app.use('/api/resources', resourcesRouter);
+
+const trainingRouter = require('./routes/training');
+app.use('/api/training', trainingRouter);
+
+const faqsRouter = require('./routes/faqs');
+app.use('/api/faqs', faqsRouter);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Theuri Green Health Safe API Server (Firebase)' });

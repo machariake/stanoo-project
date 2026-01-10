@@ -9,8 +9,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [settings, setSettings] = useState({
     companyName: 'Theuri Green Health Safe',
-    email: 'info@theurigreenhealthsafe.com',
-    phone: '+254 700 000 000',
+    email: 'mwangis@kebs.org',
+    phone: '+254743937257',
     address: 'Westlands, Nairobi, Kenya',
     tagline: 'Professional health, safety, and environmental management services',
     facebookUrl: '#',
@@ -175,7 +175,6 @@ const Footer = () => {
             <p>&copy; {currentYear} {settings.companyName}. All rights reserved.</p>
             <div className="footer-bottom-links">
               <Link to="/privacy-policy">Privacy Policy</Link>
-              <Link to="/admin">Admin Portal</Link>
             </div>
           </div>
         </div>

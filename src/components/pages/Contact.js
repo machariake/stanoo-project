@@ -17,10 +17,10 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [settings, setSettings] = useState({
-    email: 'info@theurigreenhealthsafe.com',
-    phone: '+254 700 000 000',
+    email: 'mwangis@kebs.org',
+    phone: '+254743937257',
     address: 'Westlands, Nairobi, Kenya',
-    whatsappNumber: '254700000000'
+    whatsappNumber: '254743937257'
   });
 
   const { addToast } = useToast();

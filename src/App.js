@@ -12,6 +12,8 @@ import CookieConsent from './components/common/CookieConsent';
 import PrivacyPolicy from './components/pages/PrivacyPolicy';
 import BlogPost from './components/pages/BlogPost';
 import Projects from './components/pages/Projects';
+import Resources from './components/pages/Resources';
+import Training from './components/pages/Training';
 
 /* Admin Components */
 import AdminDashboard from './components/admin/AdminDashboard';
@@ -20,6 +22,8 @@ import ServiceForm from './components/admin/ServiceForm';
 import TestimonialForm from './components/admin/TestimonialForm';
 import TeamForm from './components/admin/TeamForm';
 import ProjectForm from './components/admin/ProjectForm';
+import ResourcesManager from './components/admin/ResourcesManager';
+import ResourceForm from './components/admin/ResourceForm';
 import Login from './components/admin/Login';
 import ProtectedRoute from './components/admin/ProtectedRoute';
 
@@ -47,6 +51,8 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/training" element={<Training />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           </Route>
 
@@ -114,6 +120,17 @@ function App() {
           <Route path="/admin/team/edit/:id" element={
             <ProtectedRoute>
               <TeamForm />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/admin/resources" element={
+            <ProtectedRoute>
+              <ResourcesManager />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/resources/create" element={
+            <ProtectedRoute>
+              <ResourceForm />
             </ProtectedRoute>
           } />
         </Routes>
