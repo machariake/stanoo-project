@@ -25,7 +25,7 @@ const VideoSection = ({ title, subtitle, videoUrl }) => {
                 <div className="video-wrapper">
                     <div className="video-container glass-card">
                         <iframe
-                            src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+                            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1&modestbranding=1&rel=0&showinfo=0`}
                             title="Featured Video"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
