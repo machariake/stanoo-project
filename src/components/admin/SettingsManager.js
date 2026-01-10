@@ -204,6 +204,60 @@ const SettingsManager = () => {
                     </div>
                 </div>
 
+                <div className="form-section" style={{ marginBottom: '30px', background: '#fff3cd', padding: '20px', borderRadius: '8px', border: '1px solid #ffc107' }}>
+                    <h3 style={{ borderBottom: '1px solid #ffc107', paddingBottom: '10px', marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
+                        <span style={{ fontSize: '1.5rem', marginRight: '10px' }}>💬</span> Live Chat Integration
+                    </h3>
+                    <p style={{ marginBottom: '20px', color: '#856404' }}>Configure Tawk.to live chat widget for real-time customer support.</p>
+
+                    <div className="checkbox-group" style={{ marginBottom: '15px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                            <input
+                                type="checkbox"
+                                name="enableTawkTo"
+                                checked={settings.enableTawkTo || false}
+                                onChange={(e) => setSettings(prev => ({ ...prev, enableTawkTo: e.target.checked }))}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }}
+                            />
+                            <strong>Enable Tawk.to Live Chat</strong>
+                        </label>
+                        <p style={{ marginLeft: '30px', fontSize: '0.9rem', color: '#666' }}>
+                            Show live chat widget on your website for instant customer support.
+                        </p>
+                    </div>
+
+                    {settings.enableTawkTo && (
+                        <div className="form-group" style={{ marginLeft: '30px' }}>
+                            <label>Tawk.to Property ID <span style={{ color: 'red' }}>*</span></label>
+                            <input
+                                type="text"
+                                name="tawkToPropertyId"
+                                value={settings.tawkToPropertyId || ''}
+                                onChange={handleChange}
+                                className="form-control"
+                                placeholder="e.g., 5f8a9b1c2d3e4f5g6h7i8j9k"
+                            />
+                            <small className="text-gray" style={{ display: 'block', marginTop: '5px', color: '#666' }}>
+                                Find your Property ID in your Tawk.to dashboard under Administration → Property Settings.
+                            </small>
+                            <div className="form-group" style={{ marginTop: '15px' }}>
+                                <label>Tawk.to Widget ID (Optional)</label>
+                                <input
+                                    type="text"
+                                    name="tawkToWidgetId"
+                                    value={settings.tawkToWidgetId || ''}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    placeholder="e.g., default"
+                                />
+                                <small className="text-gray" style={{ display: 'block', marginTop: '5px', color: '#666' }}>
+                                    Leave as "default" unless you have a custom widget.
+                                </small>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
                 <div className="form-section" style={{ marginBottom: '30px', background: '#f8fafc', padding: '20px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
                     <h3 style={{ borderBottom: '1px solid #cbd5e1', paddingBottom: '10px', marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
                         <span style={{ fontSize: '1.5rem', marginRight: '10px' }}>⚙️</span> Feature Management

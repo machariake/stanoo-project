@@ -8,6 +8,7 @@ import Blog from './components/pages/Blog';
 import NotFound from './components/pages/NotFound';
 import ScrollToTop from './components/common/ScrollToTop';
 import WhatsAppWidget from './components/common/WhatsAppWidget';
+import TawkToWidget from './components/common/TawkToWidget';
 import CookieConsent from './components/common/CookieConsent';
 import PrivacyPolicy from './components/pages/PrivacyPolicy';
 import BlogPost from './components/pages/BlogPost';
@@ -44,6 +45,7 @@ function App() {
           <Router>
             <ScrollToTop /> {/* Adds scroll recovery on route change & the button */}
             <WhatsAppWidget /> {/* Floating WhatsApp Button */}
+            <TawkToWidget /> {/* Tawk.to Live Chat Widget */}
             <CookieConsent /> {/* Cookie Consent Banner */}
 
             <Routes>

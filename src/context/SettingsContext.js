@@ -14,6 +14,9 @@ export const SettingsProvider = ({ children }) => {
         enableTestimonials: true,
         enableWhatsApp: true,
         enableQuote: true,
+        enableTawkTo: false,
+        tawkToPropertyId: '',
+        tawkToWidgetId: 'default',
         companyName: 'Theuri Green Health Safe',
         christmasMode: false
     });
