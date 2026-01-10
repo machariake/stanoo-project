@@ -21,17 +21,17 @@ const VideoSection = ({ title, subtitle, videoUrl }) => {
                     {title && <h2 className="gradient-text">{title}</h2>}
                     {subtitle && <p>{subtitle}</p>}
                 </div>
+            </div>
 
-                <div className="video-wrapper">
-                    <div className="video-container glass-card">
-                        <iframe
-                            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1&modestbranding=1&rel=0&showinfo=0`}
-                            title="Featured Video"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
-                    </div>
+            <div className="video-wrapper">
+                <div className="video-container glass-card">
+                    <iframe
+                        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&controls=1&modestbranding=1&rel=0&showinfo=0`}
+                        title="Featured Video"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    ></iframe>
                 </div>
             </div>
         </section>

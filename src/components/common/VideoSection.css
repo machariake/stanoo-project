@@ -5,10 +5,11 @@
 }
 
 .video-wrapper {
-    max-width: 100%;
+    max-width: 95%;
     margin: 30px auto 0;
     /* Add top margin */
     position: relative;
+    z-index: 2;
 }
 
 .video-container {
