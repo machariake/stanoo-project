@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SEO from '../common/SEO';
+import PageHeader from '../common/PageHeader';
+import VideoSection from '../common/VideoSection';
 import config from '../../config';
 import { useSettings } from '../../context/SettingsContext';
 import { localServices } from '../../data/localServices';
@@ -119,6 +121,18 @@ const Home = () => {
         </div>
       </section>
 
+
+      {/* Video Section */}
+      {
+        settings.enableVideoSection && settings.videoUrl && (
+          <VideoSection
+            title={settings.videoTitle}
+            subtitle={settings.videoSubtitle}
+            videoUrl={settings.videoUrl}
+          />
+        )
+      }
+
       {/* Services Overview Section */}
       <section className="services-overview section">
         <div className="container">
@@ -199,43 +213,45 @@ const Home = () => {
         </div>
       </section>
 
-      {settings.enableTestimonials && (
-        <section className="testimonials section">
-          <div className="container">
-            <div className="section-header text-center slide-up">
-              <h2>What Our Clients Say</h2>
-              <p>Trusted by businesses across various industries</p>
-            </div>
-            <div className="testimonials-grid">
-              {testimonials.length > 0 ? (
-                testimonials.map((item, idx) => (
-                  <div className={`testimonial-card glass-card slide-up delay-${Math.min((idx + 1) * 100, 500)}`} key={item._id}>
-                    <div className="testimonial-content">
-                      <div className="testimonial-quote">
-                        <i className="fas fa-quote-left gradient-text"></i>
-                      </div>
-                      <p>"{item.quote}"</p>
-                      <div className="testimonial-author">
-                        {item.imageUrl && (
-                          <div className="author-image" style={{ width: '50px', height: '50px', borderRadius: '50%', overflow: 'hidden', marginRight: '15px' }}>
-                            <img src={item.imageUrl} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      {
+        settings.enableTestimonials && (
+          <section className="testimonials section">
+            <div className="container">
+              <div className="section-header text-center slide-up">
+                <h2>What Our Clients Say</h2>
+                <p>Trusted by businesses across various industries</p>
+              </div>
+              <div className="testimonials-grid">
+                {testimonials.length > 0 ? (
+                  testimonials.map((item, idx) => (
+                    <div className={`testimonial-card glass-card slide-up delay-${Math.min((idx + 1) * 100, 500)}`} key={item._id}>
+                      <div className="testimonial-content">
+                        <div className="testimonial-quote">
+                          <i className="fas fa-quote-left gradient-text"></i>
+                        </div>
+                        <p>"{item.quote}"</p>
+                        <div className="testimonial-author">
+                          {item.imageUrl && (
+                            <div className="author-image" style={{ width: '50px', height: '50px', borderRadius: '50%', overflow: 'hidden', marginRight: '15px' }}>
+                              <img src={item.imageUrl} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                          )}
+                          <div className="author-info">
+                            <h4>{item.name}</h4>
+                            <span>{item.role}</span>
                           </div>
-                        )}
-                        <div className="author-info">
-                          <h4>{item.name}</h4>
-                          <span>{item.role}</span>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))
-              ) : (
-                <div className="text-center">Loading testimonials...</div>
-              )}
+                  ))
+                ) : (
+                  <div className="text-center">Loading testimonials...</div>
+                )}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        )
+      }
 
       {/* Call to Action Section */}
       <section className="cta section scale-in delay-200">
@@ -254,7 +270,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-    </div>
+    </div >
   );
 };
 

@@ -17,6 +17,10 @@ export const SettingsProvider = ({ children }) => {
         enableTawkTo: false,
         tawkToPropertyId: '',
         tawkToWidgetId: 'default',
+        enableVideoSection: false,
+        videoTitle: '',
+        videoSubtitle: '',
+        videoUrl: '',
         companyName: 'Theuri Green Health Safe',
         christmasMode: false
     });

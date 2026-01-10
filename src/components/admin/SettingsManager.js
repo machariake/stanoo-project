@@ -29,7 +29,12 @@ const SettingsManager = () => {
         // Seasonal
         christmasMode: false,
         christmasMusic: false,
-        christmasMusicUrl: ''
+        christmasMusicUrl: '',
+        // Video Section
+        enableVideoSection: false,
+        videoTitle: '',
+        videoSubtitle: '',
+        videoUrl: ''
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -408,6 +413,67 @@ const SettingsManager = () => {
                             <small className="text-gray" style={{ display: 'block', marginTop: '5px', color: '#666' }}>
                                 Leave empty to use the default "Jingle Bells" tune.
                             </small>
+                        </div>
+                    )}
+                </div>
+
+                <div className="form-section" style={{ marginBottom: '30px', background: '#e0f2fe', padding: '20px', borderRadius: '8px', border: '1px solid #7dd3fc' }}>
+                    <h3 style={{ borderBottom: '1px solid #7dd3fc', paddingBottom: '10px', marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
+                        <span style={{ fontSize: '1.5rem', marginRight: '10px' }}>🎥</span> Home Page Video
+                    </h3>
+                    <p style={{ marginBottom: '20px', color: '#0369a1' }}>Add a featured video section to your home page.</p>
+
+                    <div className="checkbox-group" style={{ marginBottom: '15px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                            <input
+                                type="checkbox"
+                                name="enableVideoSection"
+                                checked={settings.enableVideoSection || false}
+                                onChange={(e) => setSettings(prev => ({ ...prev, enableVideoSection: e.target.checked }))}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }}
+                            />
+                            <strong>Enable Video Section</strong>
+                        </label>
+                    </div>
+
+                    {settings.enableVideoSection && (
+                        <div style={{ marginLeft: '30px' }}>
+                            <div className="form-group">
+                                <label>Section Title</label>
+                                <input
+                                    type="text"
+                                    name="videoTitle"
+                                    value={settings.videoTitle || ''}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    placeholder="e.g., See Us In Action"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Section Subtitle/Description</label>
+                                <textarea
+                                    name="videoSubtitle"
+                                    value={settings.videoSubtitle || ''}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    placeholder="Brief description..."
+                                    rows="2"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>YouTube Video URL <span style={{ color: 'red' }}>*</span></label>
+                                <input
+                                    type="text"
+                                    name="videoUrl"
+                                    value={settings.videoUrl || ''}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    placeholder="e.g., https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                />
+                                <small className="text-gray" style={{ display: 'block', marginTop: '5px', color: '#666' }}>
+                                    Paste the full YouTube URL here.
+                                </small>
+                            </div>
                         </div>
                     )}
                 </div>

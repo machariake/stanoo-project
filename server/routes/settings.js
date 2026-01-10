@@ -18,6 +18,10 @@ router.get('/', async (req, res) => {
             enableQuote: true,
             enableTawkTo: false,
             tawkToWidgetId: 'default',
+            enableVideoSection: false,
+            videoTitle: 'See Us In Action',
+            videoSubtitle: 'Learn more about our services and commitment to safety.',
+            videoUrl: '',
             companyName: 'Theuri Green Health Safe'
         };
 
