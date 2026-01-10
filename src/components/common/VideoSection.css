@@ -1,12 +1,13 @@
 .video-section {
-    padding: 80px 0;
+    padding: 60px 0;
     position: relative;
     overflow: hidden;
 }
 
 .video-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 30px auto 0;
+    /* Add top margin */
     position: relative;
 }
 
