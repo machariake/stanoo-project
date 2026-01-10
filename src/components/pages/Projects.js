@@ -97,6 +97,29 @@ const Projects = () => {
                                                     </ul>
                                                 </div>
                                             )}
+
+                                            {project.testimonial && (
+                                                <div className="project-testimonial mt-3" style={{ fontStyle: 'italic', borderLeft: '3px solid #10b981', paddingLeft: '10px' }}>
+                                                    <p>"{project.testimonial}"</p>
+                                                    <small className="text-muted">- {project.testimonialAuthor || 'Client'}</small>
+                                                </div>
+                                            )}
+
+                                            {project.beforeImage && project.afterImage && (
+                                                <div className="project-comparison mt-3 mb-2">
+                                                    <h5 style={{ fontSize: '0.9rem', marginBottom: '5px' }}>Visual Impact (Before vs After)</h5>
+                                                    <div style={{ display: 'flex', gap: '5px' }}>
+                                                        <div style={{ flex: 1, position: 'relative' }}>
+                                                            <img src={project.beforeImage} alt="Before" style={{ width: '100%', borderRadius: '4px', height: '80px', objectFit: 'cover' }} />
+                                                            <span style={{ position: 'absolute', bottom: '2px', left: '2px', background: 'rgba(0,0,0,0.6)', color: 'white', fontSize: '10px', padding: '2px 4px', borderRadius: '2px' }}>Before</span>
+                                                        </div>
+                                                        <div style={{ flex: 1, position: 'relative' }}>
+                                                            <img src={project.afterImage} alt="After" style={{ width: '100%', borderRadius: '4px', height: '80px', objectFit: 'cover' }} />
+                                                            <span style={{ position: 'absolute', bottom: '2px', left: '2px', background: 'rgba(16, 185, 129, 0.8)', color: 'white', fontSize: '10px', padding: '2px 4px', borderRadius: '2px' }}>After</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 ))

@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SEO from '../common/SEO';
 import config from '../../config';
+import { useSettings } from '../../context/SettingsContext';
 import { localServices } from '../../data/localServices';
 import './Home.css';
 
 const Home = () => {
+  const { settings } = useSettings();
   const [services, setServices] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [content, setContent] = useState({
@@ -64,12 +66,14 @@ const Home = () => {
   return (
     <div className="home">
       <SEO
-        title="Home"
-        description="Leading provider of comprehensive health, safety, and environmental management services in East Africa."
+        title={content.home?.seoTitle || "Home"}
+        description={content.home?.seoDescription || "Leading provider of comprehensive health, safety, and environmental management services in East Africa."}
       />
       {/* Hero Section */}
       <section className="hero fade-in">
-        <div className="hero-background">
+        <div className="hero-background" style={{
+          backgroundImage: content.home?.heroImage ? `url(${content.home.heroImage})` : undefined
+        }}>
           <div className="hero-overlay"></div>
         </div>
         <div className="container">
@@ -92,16 +96,16 @@ const Home = () => {
               </div>
               <div className="hero-stats slide-up delay-400">
                 <div className="stat glass-card">
-                  <span className="stat-number gradient-text">500+</span>
-                  <span className="stat-label">Projects Completed</span>
+                  <span className="stat-number gradient-text">{content.home.stats?.stat1Number || '500+'}</span>
+                  <span className="stat-label">{content.home.stats?.stat1Label || 'Projects Completed'}</span>
                 </div>
                 <div className="stat glass-card">
-                  <span className="stat-number gradient-text">15+</span>
-                  <span className="stat-label">Years Experience</span>
+                  <span className="stat-number gradient-text">{content.home.stats?.stat2Number || '15+'}</span>
+                  <span className="stat-label">{content.home.stats?.stat2Label || 'Years Experience'}</span>
                 </div>
                 <div className="stat glass-card">
-                  <span className="stat-number gradient-text">100%</span>
-                  <span className="stat-label">Client Satisfaction</span>
+                  <span className="stat-number gradient-text">{content.home.stats?.stat3Number || '100%'}</span>
+                  <span className="stat-label">{content.home.stats?.stat3Label || 'Client Satisfaction'}</span>
                 </div>
               </div>
             </div>
@@ -195,42 +199,43 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="testimonials section">
-        <div className="container">
-          <div className="section-header text-center slide-up">
-            <h2>What Our Clients Say</h2>
-            <p>Trusted by businesses across various industries</p>
-          </div>
-          <div className="testimonials-grid">
-            {testimonials.length > 0 ? (
-              testimonials.map((item, idx) => (
-                <div className={`testimonial-card glass-card slide-up delay-${Math.min((idx + 1) * 100, 500)}`} key={item._id}>
-                  <div className="testimonial-content">
-                    <div className="testimonial-quote">
-                      <i className="fas fa-quote-left gradient-text"></i>
-                    </div>
-                    <p>"{item.quote}"</p>
-                    <div className="testimonial-author">
-                      {item.imageUrl && (
-                        <div className="author-image" style={{ width: '50px', height: '50px', borderRadius: '50%', overflow: 'hidden', marginRight: '15px' }}>
-                          <img src={item.imageUrl} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      {settings.enableTestimonials && (
+        <section className="testimonials section">
+          <div className="container">
+            <div className="section-header text-center slide-up">
+              <h2>What Our Clients Say</h2>
+              <p>Trusted by businesses across various industries</p>
+            </div>
+            <div className="testimonials-grid">
+              {testimonials.length > 0 ? (
+                testimonials.map((item, idx) => (
+                  <div className={`testimonial-card glass-card slide-up delay-${Math.min((idx + 1) * 100, 500)}`} key={item._id}>
+                    <div className="testimonial-content">
+                      <div className="testimonial-quote">
+                        <i className="fas fa-quote-left gradient-text"></i>
+                      </div>
+                      <p>"{item.quote}"</p>
+                      <div className="testimonial-author">
+                        {item.imageUrl && (
+                          <div className="author-image" style={{ width: '50px', height: '50px', borderRadius: '50%', overflow: 'hidden', marginRight: '15px' }}>
+                            <img src={item.imageUrl} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          </div>
+                        )}
+                        <div className="author-info">
+                          <h4>{item.name}</h4>
+                          <span>{item.role}</span>
                         </div>
-                      )}
-                      <div className="author-info">
-                        <h4>{item.name}</h4>
-                        <span>{item.role}</span>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))
-            ) : (
-              <div className="text-center">Loading testimonials...</div>
-            )}
+                ))
+              ) : (
+                <div className="text-center">Loading testimonials...</div>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Call to Action Section */}
       <section className="cta section scale-in delay-200">

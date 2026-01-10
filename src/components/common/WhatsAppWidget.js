@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import config from '../../config';
 import './WhatsAppWidget.css';
+import { useSettings } from '../../context/SettingsContext';
 
 const WhatsAppWidget = () => {
-    const [phoneNumber, setPhoneNumber] = useState('254743937257'); // Default fallback
+    const { settings } = useSettings();
+    const [phoneNumber, setPhoneNumber] = useState('254743937257');
 
     useEffect(() => {
-        const fetchSettings = async () => {
-            try {
-                const response = await axios.get(`${config.API_URL}/settings`);
-                if (response.data.settings?.whatsappNumber) {
-                    setPhoneNumber(response.data.settings.whatsappNumber.replace(/\+/g, '').replace(/\s/g, ''));
-                } else if (response.data.settings?.phone) {
-                    // Fallback to main phone if no specific Whatsapp number
-                    setPhoneNumber(response.data.settings.phone.replace(/\+/g, '').replace(/\s/g, ''));
-                }
-            } catch (err) {
-                console.error('Error fetching WhatsApp settings:', err);
-            }
-        };
-        fetchSettings();
-    }, []);
+        if (settings?.whatsappNumber) {
+            setPhoneNumber(settings.whatsappNumber.replace(/\+/g, '').replace(/\s/g, ''));
+        } else if (settings?.phone) {
+            setPhoneNumber(settings.phone.replace(/\+/g, '').replace(/\s/g, ''));
+        }
+    }, [settings]);
+
+    if (settings?.enableWhatsApp === false) return null;
 
     const whatsappUrl = `https://wa.me/${phoneNumber}`;
 

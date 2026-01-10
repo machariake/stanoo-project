@@ -59,13 +59,14 @@
   color: var(--white);
   /* White text */
   line-height: 1.2;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  /* Increased shadow for contrast */
 }
 
 .logo-sub {
   font-size: var(--font-size-sm);
-  color: rgba(255, 255, 255, 0.8);
-  /* Slightly muted white */
+  color: rgba(255, 255, 255, 0.9);
+  /* High contrast sub text */
   font-weight: 500;
 }
 
@@ -88,7 +89,8 @@
 }
 
 .nav-link {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
+  /* Increased contrast */
   /* White text */
   font-weight: 500;
   font-size: var(--font-size-base);
@@ -97,6 +99,8 @@
   border-radius: var(--radius-md);
   transition: all 0.3s ease;
   position: relative;
+  white-space: nowrap;
+  /* Prevent wrapping */
 }
 
 .nav-link:hover {
@@ -281,6 +285,29 @@
   box-shadow: var(--shadow-lg);
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
+  color: var(--primary-green);
+}
+
+.header.scrolled .logo a,
+.header.scrolled .nav-link,
+.header.scrolled .logo-main,
+.header.scrolled .menu-toggle span,
+.header.scrolled .logo-sub {
+  color: var(--primary-green);
+}
+
+.header.scrolled .logo-icon {
+  background-color: var(--primary-green);
+  color: var(--white);
+}
+
+.header.scrolled .nav-cta .btn {
+  background-color: var(--primary-green);
+  color: var(--white);
+}
+
+.header.scrolled .nav-cta .btn:hover {
+  background-color: var(--secondary-green);
 }
 
 /* Accessibility */

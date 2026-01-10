@@ -1,8 +1,10 @@
 .whatsapp-widget {
     position: fixed;
-    bottom: 30px;
+    bottom: 40px;
+    /* Raised to avoid footer overlap */
     left: 30px;
-    z-index: 1000;
+    z-index: 9999;
+    /* Higher z-index to stay on top */
     display: flex;
     align-items: center;
     justify-content: center;

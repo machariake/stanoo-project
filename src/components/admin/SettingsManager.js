@@ -204,6 +204,90 @@ const SettingsManager = () => {
                     </div>
                 </div>
 
+                <div className="form-section" style={{ marginBottom: '30px', background: '#f8fafc', padding: '20px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                    <h3 style={{ borderBottom: '1px solid #cbd5e1', paddingBottom: '10px', marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
+                        <span style={{ fontSize: '1.5rem', marginRight: '10px' }}>⚙️</span> Feature Management
+                    </h3>
+                    <p style={{ marginBottom: '20px', color: '#64748b' }}>Toggle features on or off to control what visitors see on your website.</p>
+
+                    <div className="checkbox-group" style={{ marginBottom: '15px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                            <input
+                                type="checkbox"
+                                name="enableTraining"
+                                checked={settings.enableTraining !== false} // Default to true if undefined
+                                onChange={(e) => setSettings(prev => ({ ...prev, enableTraining: e.target.checked }))}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }}
+                            />
+                            <strong>Enable Training Page</strong>
+                        </label>
+                    </div>
+
+                    <div className="checkbox-group" style={{ marginBottom: '15px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                            <input
+                                type="checkbox"
+                                name="enableResources"
+                                checked={settings.enableResources !== false}
+                                onChange={(e) => setSettings(prev => ({ ...prev, enableResources: e.target.checked }))}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }}
+                            />
+                            <strong>Enable Resources & Downloads</strong>
+                        </label>
+                    </div>
+
+                    <div className="checkbox-group" style={{ marginBottom: '15px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                            <input
+                                type="checkbox"
+                                name="enableBlog"
+                                checked={settings.enableBlog !== false}
+                                onChange={(e) => setSettings(prev => ({ ...prev, enableBlog: e.target.checked }))}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }}
+                            />
+                            <strong>Enable Blog / News</strong>
+                        </label>
+                    </div>
+
+                    <div className="checkbox-group" style={{ marginBottom: '15px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                            <input
+                                type="checkbox"
+                                name="enableTestimonials"
+                                checked={settings.enableTestimonials !== false}
+                                onChange={(e) => setSettings(prev => ({ ...prev, enableTestimonials: e.target.checked }))}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }}
+                            />
+                            <strong>Enable Testimonials Section</strong>
+                        </label>
+                    </div>
+
+                    <div className="checkbox-group" style={{ marginBottom: '15px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                            <input
+                                type="checkbox"
+                                name="enableWhatsApp"
+                                checked={settings.enableWhatsApp !== false}
+                                onChange={(e) => setSettings(prev => ({ ...prev, enableWhatsApp: e.target.checked }))}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }}
+                            />
+                            <strong>Enable WhatsApp Widget</strong>
+                        </label>
+                    </div>
+                    <div className="checkbox-group" style={{ marginBottom: '15px' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                            <input
+                                type="checkbox"
+                                name="enableQuote"
+                                checked={settings.enableQuote !== false}
+                                onChange={(e) => setSettings(prev => ({ ...prev, enableQuote: e.target.checked }))}
+                                style={{ width: '20px', height: '20px', marginRight: '10px' }}
+                            />
+                            <strong>Enable 'Get A Quote' Calculator</strong>
+                        </label>
+                    </div>
+                </div>
+
                 <div className="form-section" style={{ marginBottom: '30px', background: '#f0f9ff', padding: '20px', borderRadius: '8px', border: '1px solid #bae6fd' }}>
                     <h3 style={{ borderBottom: '1px solid #bae6fd', paddingBottom: '10px', marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
                         <span style={{ fontSize: '1.5rem', marginRight: '10px' }}>🎄</span> Seasonal Settings

@@ -8,8 +8,11 @@ import SettingsManager from './SettingsManager';
 import MessagesManager from './MessagesManager';
 import SubscribersManager from './SubscribersManager';
 import ProjectsManager from './ProjectsManager';
-import DashboardOverview from './DashboardOverview'; // Import
+import DashboardOverview from './DashboardOverview';
 import ContentManager from './ContentManager';
+import ResourcesManager from './ResourcesManager'; // Import
+import TrainingManager from './TrainingManager'; // Import
+import FAQManager from './FAQManager'; // Import
 import './Admin.css';
 
 const AdminDashboard = () => {
@@ -53,6 +56,9 @@ const AdminDashboard = () => {
                             { id: 'posts', icon: 'newspaper', label: 'Blog Posts' },
                             { id: 'projects', icon: 'briefcase', label: 'Projects' },
                             { id: 'services', icon: 'tools', label: 'Services' },
+                            { id: 'resources', icon: 'file-download', label: 'Resources' },
+                            { id: 'training', icon: 'chalkboard-teacher', label: 'Training' },
+                            { id: 'faqs', icon: 'question-circle', label: 'FAQs' },
                             { id: 'testimonials', icon: 'comment-alt', label: 'Testimonials' },
                             { id: 'team', icon: 'users', label: 'Team Members' },
                             { id: 'messages', icon: 'inbox', label: 'Messages' },
@@ -109,6 +115,9 @@ const AdminDashboard = () => {
                         {activeTab === 'posts' && <PostsManager />}
                         {activeTab === 'projects' && <ProjectsManager />}
                         {activeTab === 'services' && <ServicesManager />}
+                        {activeTab === 'resources' && <ResourcesManager />}
+                        {activeTab === 'training' && <TrainingManager />}
+                        {activeTab === 'faqs' && <FAQManager />}
                         {activeTab === 'testimonials' && <TestimonialsManager />}
                         {activeTab === 'team' && <TeamManager />}
                         {activeTab === 'settings' && <SettingsManager />}

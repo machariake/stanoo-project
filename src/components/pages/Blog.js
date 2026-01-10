@@ -4,6 +4,7 @@ import SEO from '../common/SEO';
 import SocialShare from '../common/SocialShare';
 import PageHeader from '../common/PageHeader';
 import config from '../../config';
+import Newsletter from '../common/Newsletter';
 import './Blog.css';
 
 const Blog = () => {
@@ -238,23 +239,11 @@ const Blog = () => {
               <h2 className="gradient-text">Stay Updated</h2>
               <p>Subscribe to our newsletter and get the latest insights on health, safety, and environmental management delivered to your inbox.</p>
             </div>
-            <div className="newsletter-form">
-              <form className="subscription-form">
-                <div className="form-group">
-                  <input
-                    type="email"
-                    placeholder="Enter your email address"
-                    className="newsletter-input"
-                    required
-                  />
-                  <button type="submit" className="btn btn-primary">
-                    Subscribe
-                  </button>
-                </div>
-                <p className="newsletter-note">
-                  We respect your privacy. Unsubscribe at any time.
-                </p>
-              </form>
+            <div className="newsletter-form-container">
+              <Newsletter />
+              <p className="newsletter-note">
+                We respect your privacy. Unsubscribe at any time.
+              </p>
             </div>
           </div>
         </div>

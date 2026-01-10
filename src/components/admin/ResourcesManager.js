@@ -73,10 +73,9 @@ const ResourcesManager = () => {
                                     <td>{res.category}</td>
                                     <td><a href={res.downloadUrl} target="_blank" rel="noreferrer"><i className="fas fa-download"></i> Link</a></td>
                                     <td>
-                                        {/* Edit is not fully implemented yet on backend for PUT, so hiding for now or redirecting to generic form */}
-                                        {/* <Link to={`/admin/resources/edit/${res._id}`} className="action-btn edit">
-                      <i className="fas fa-edit"></i>
-                    </Link> */}
+                                        <Link to={`/admin/resources/edit/${res._id}`} className="action-btn edit">
+                                            <i className="fas fa-edit"></i>
+                                        </Link>
                                         <button onClick={() => handleDelete(res._id)} className="action-btn delete">
                                             <i className="fas fa-trash"></i>
                                         </button>

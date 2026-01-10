@@ -29,9 +29,16 @@
   --black: #111827;
   /* Rich black */
 
+  /* Text Colors */
+  --text-main: #1f2937;
+  /* Dark Slate Gray */
+  --text-secondary: #4b5563;
+  /* Medium Gray */
+  --text-muted: #6b7280;
+  /* Light Gray */
+
   /* Typography */
   --font-primary: 'Outfit', 'Inter', sans-serif;
-  /* Switching to Outfit for a more modern feel if available, falling back to Inter */
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
@@ -48,19 +55,18 @@
   --spacing-xl: 4rem;
   --spacing-2xl: 6rem;
 
-  /* Border radius - More rounded for modern feel */
+  /* Border radius */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
 
-  /* Premium Shadows - Softer & Deeper */
+  /* Premium Shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
   --shadow-glow: 0 0 20px rgba(6, 78, 59, 0.15);
-  /* Subtle green glow */
 }
 
 /* Reset and Base Styles */
@@ -79,13 +85,18 @@ body {
   font-family: var(--font-primary);
   font-size: var(--font-size-base);
   line-height: 1.6;
-  color: var(--text-secondary);
-  background-color: #fcfcfc;
-  /* Very Soft Off-White/Cream */
+  color: #374151;
+  /* Dark Gray */
+  background-color: #ecfdf5;
+  /* Soft Mint Green - Replacing White */
   background-image: none;
-  /* Removed the dark gradients */
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Typography */
@@ -132,7 +143,8 @@ h6 {
 
 p {
   margin-bottom: var(--spacing-sm);
-  color: var(--text-secondary);
+  color: #4b5563;
+  /* Medium Dark Gray */
 }
 
 a {
@@ -603,12 +615,11 @@ a:focus {
 /* Clean Modern Cards */
 .card,
 .glass-card {
-  background-color: #ffffff;
-  /* Pure White */
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  background-color: #d1fae5;
+  /* Distinct Mint Green - No more white */
+  border: 1px solid rgba(6, 78, 59, 0.1);
   border-radius: var(--radius-lg);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02), 0 10px 15px rgba(0, 0, 0, 0.03);
-  /* Extremely soft premium shadow */
   padding: var(--spacing-lg);
   margin-bottom: var(--spacing-lg);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -632,8 +643,9 @@ a:focus {
 }
 
 .glass-panel {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: #d1fae5;
+  /* Match Card Green */
+  border: 1px solid rgba(6, 78, 59, 0.1);
   box-shadow: var(--shadow-lg);
 }
 

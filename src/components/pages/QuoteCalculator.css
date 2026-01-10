@@ -1,0 +1,206 @@
+/* QuoteCalculator.css */
+
+.calculator-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 0 40px;
+    position: relative;
+}
+
+.progress-step {
+    background: #fff;
+    color: #999;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    z-index: 2;
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active {
+    background: var(--primary-green);
+    color: #fff;
+    border-color: var(--primary-green);
+    box-shadow: 0 4px 6px rgba(45, 95, 63, 0.2);
+}
+
+.progress-line {
+    flex: 1;
+    height: 4px;
+    background: #e5e7eb;
+    margin: 0 10px;
+    border-radius: 2px;
+    transition: all 0.5s ease;
+}
+
+.progress-line.filled {
+    background: var(--primary-green);
+}
+
+/* Calculator Card */
+.calculator-card {
+    padding: 40px;
+    border-radius: 20px;
+    min-height: 400px;
+}
+
+.step-title {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--primary-green);
+    font-size: 2rem;
+}
+
+/* Step 1: Service Options */
+.service-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.service-option-card {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.service-option-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-option-card.active {
+    border-color: var(--primary-green);
+    background: rgba(45, 95, 63, 0.05);
+}
+
+.icon-wrapper {
+    font-size: 3rem;
+    color: var(--secondary-green);
+    margin-bottom: 15px;
+}
+
+.service-option-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--dark-gray);
+}
+
+.service-option-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Forms */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+}
+
+.radio-option {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.radio-option:hover {
+    border-color: #bbb;
+}
+
+.radio-option.selected {
+    border-color: var(--primary-green);
+    color: var(--primary-green);
+    background: rgba(45, 95, 63, 0.05);
+}
+
+.radio-option input {
+    display: none;
+}
+
+/* Actions */
+.step-actions {
+    margin-top: 40px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+/* Success */
+.success-icon {
+    font-size: 5rem;
+    color: #10b981;
+    margin-bottom: 20px;
+}
+
+.success-message h2 {
+    color: #10b981;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .progress-indicator {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+        padding: 0;
+    }
+
+    .progress-line {
+        display: none;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .radio-group {
+        flex-direction: column;
+    }
+
+    .step-actions {
+        flex-direction: column-reverse;
+    }
+
+    .step-actions .btn {
+        width: 100%;
+    }
+}

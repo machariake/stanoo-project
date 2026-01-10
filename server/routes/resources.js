@@ -21,6 +21,19 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET single resource
+router.get('/:id', async (req, res) => {
+    try {
+        const doc = await db.collection(COLLECTION_NAME).doc(req.params.id).get();
+        if (!doc.exists) {
+            return res.status(404).json({ success: false, message: 'Resource not found' });
+        }
+        res.json({ success: true, resource: { _id: doc.id, ...doc.data() } });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
 // POST new resource
 router.post('/', async (req, res) => {
     try {
@@ -32,6 +45,20 @@ router.post('/', async (req, res) => {
         res.status(201).json({ success: true, resource: { _id: docRef.id, ...newResource } });
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
+    }
+});
+
+// PUT update resource
+router.put('/:id', async (req, res) => {
+    try {
+        const updates = {
+            ...req.body,
+            updatedAt: new Date().toISOString()
+        };
+        await db.collection(COLLECTION_NAME).doc(req.params.id).update(updates);
+        res.json({ success: true, message: 'Resource updated', resource: { _id: req.params.id, ...updates } });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
     }
 });
 

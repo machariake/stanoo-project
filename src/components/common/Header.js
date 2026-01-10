@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
+import { useSettings } from '../../context/SettingsContext';
 import './Header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { settings } = useSettings();
 
   const [scrolled, setScrolled] = useState(false);
 
@@ -43,7 +45,12 @@ const Header = () => {
           {/* Logo */}
           <div className="logo">
             <Link to="/" onClick={closeMenu}>
-              <Logo width={40} height={40} />
+              <Logo
+                width={40}
+                height={40}
+                theme={scrolled ? 'light' : 'dark'}
+                color={scrolled ? '#2d5f3f' : '#ffffff'}
+              />
             </Link>
           </div>
 
@@ -86,33 +93,39 @@ const Header = () => {
                   Projects
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link
-                  to="/training"
-                  className={`nav-link ${isActive('/training')}`}
-                  onClick={closeMenu}
-                >
-                  Training
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to="/resources"
-                  className={`nav-link ${isActive('/resources')}`}
-                  onClick={closeMenu}
-                >
-                  Resources
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to="/blog"
-                  className={`nav-link ${isActive('/blog')}`}
-                  onClick={closeMenu}
-                >
-                  Blog
-                </Link>
-              </li>
+              {settings.enableTraining && (
+                <li className="nav-item">
+                  <Link
+                    to="/training"
+                    className={`nav-link ${isActive('/training')}`}
+                    onClick={closeMenu}
+                  >
+                    Training
+                  </Link>
+                </li>
+              )}
+              {settings.enableResources && (
+                <li className="nav-item">
+                  <Link
+                    to="/resources"
+                    className={`nav-link ${isActive('/resources')}`}
+                    onClick={closeMenu}
+                  >
+                    Resources
+                  </Link>
+                </li>
+              )}
+              {settings.enableBlog && (
+                <li className="nav-item">
+                  <Link
+                    to="/blog"
+                    className={`nav-link ${isActive('/blog')}`}
+                    onClick={closeMenu}
+                  >
+                    Blog
+                  </Link>
+                </li>
+              )}
               <li className="nav-item">
                 <Link
                   to="/contact"
@@ -122,15 +135,17 @@ const Header = () => {
                   Contact
                 </Link>
               </li>
-              <li className="nav-item nav-cta">
-                <Link
-                  to="/contact"
-                  className="btn btn-primary hover-float"
-                  onClick={closeMenu}
-                >
-                  Get Quote
-                </Link>
-              </li>
+              {settings.enableQuote && (
+                <li className="nav-item nav-cta">
+                  <Link
+                    to="/quote"
+                    className="btn btn-primary hover-float"
+                    onClick={closeMenu}
+                  >
+                    Get Quote
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
 

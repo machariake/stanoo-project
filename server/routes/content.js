@@ -17,7 +17,16 @@ router.get('/', async (req, res) => {
                 heroSubtitle: 'Leading the way in Occupational Health, Safety, and Environmental Compliance.',
                 heroButtonText: 'View Our Services',
                 welcomeTitle: 'Welcome to Theuri Green Health Safe',
-                welcomeText: 'We are a premier consultancy firm dedicated to providing top-notch health and safety solutions.'
+                welcomeText: 'We are a premier consultancy firm dedicated to providing top-notch health and safety solutions.',
+                faviconUrl: '', // Dynamic Favicon
+                stats: {
+                    stat1Number: '500+',
+                    stat1Label: 'Projects Completed',
+                    stat2Number: '15+',
+                    stat2Label: 'Years Experience',
+                    stat3Number: '100%',
+                    stat3Label: 'Client Satisfaction'
+                }
             },
             about: {
                 missionTitle: 'Our Mission',

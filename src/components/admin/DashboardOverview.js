@@ -50,69 +50,30 @@ const DashboardOverview = ({ setActiveTab }) => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const [postsRes, servicesRes, testimonialsRes, teamRes, messagesRes, subscribersRes] = await Promise.all([
-                    axios.get(`${config.API_URL}/blog/posts`),
-                    axios.get(`${config.API_URL}/services`),
-                    axios.get(`${config.API_URL}/testimonials`),
-                    axios.get(`${config.API_URL}/team`),
-                    axios.get(`${config.API_URL}/contact`),
-                    axios.get(`${config.API_URL}/newsletter`)
-                ]);
+                const response = await axios.get(`${config.API_URL}/stats`);
+                const data = response.data;
 
-                setStats({
-                    posts: postsRes.data.posts?.length || 0,
-                    services: servicesRes.data.services?.length || 0,
-                    testimonials: testimonialsRes.data.testimonials?.length || 0,
-                    team: teamRes.data.team?.length || 0,
-                    messages: messagesRes.data.messages?.length || 0,
-                    subscribers: subscribersRes.data.subscribers?.length || 0
-                });
+                if (data.success) {
+                    setStats({
+                        posts: data.stats.posts || 0,
+                        services: data.stats.services || 0,
+                        testimonials: data.stats.testimonials || 0,
+                        team: data.stats.team || 0,
+                        messages: data.stats.messages || 0,
+                        subscribers: data.stats.subscribers || 0
+                    });
 
-                // Calculate Service Popularity
-                const messages = messagesRes.data.messages || [];
-                const serviceCounts = {};
-                messages.forEach(msg => {
-                    const service = msg.service || 'General Inquiry';
-                    // Clean up service string
-                    const formattedService = service.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-                    serviceCounts[formattedService] = (serviceCounts[formattedService] || 0) + 1;
-                });
+                    // Map backend recent activity to frontend format if needed
+                    // Backend sends: { id, type, icon, label, date }
+                    // Frontend expects: { id, type, icon, label, date (Date object) }
+                    const formattedActivity = (data.recentActivity || []).map(item => ({
+                        ...item,
+                        date: new Date(item.date)
+                    }));
+                    setRecentActivity(formattedActivity);
 
-                // Convert to array and sort
-                const sortedServices = Object.entries(serviceCounts)
-                    .map(([name, count]) => ({ name, count }))
-                    .sort((a, b) => b.count - a.count)
-                    .slice(0, 5); // Top 5
-
-                setServiceStats(sortedServices);
-
-
-                // Compile Recent Activity
-                const activities = [];
-
-                // Helper to add activities
-                const addItems = (items, type, icon, labelKey, dateKey = 'createdAt') => { // Default to createdAt or date
-                    if (items && Array.isArray(items)) {
-                        items.forEach(item => {
-                            activities.push({
-                                type,
-                                icon,
-                                label: item[labelKey] || 'Unknown Item',
-                                date: new Date(item[dateKey] || item.date || Date.now()), // Fallback to now if no date
-                                id: item._id || Math.random()
-                            });
-                        });
-                    }
-                };
-
-                addItems(postsRes.data.posts, 'New Blog Post', 'fa-newspaper', 'title', 'date');
-                addItems(messagesRes.data.messages, 'New Message', 'fa-envelope', 'name', 'createdAt'); // Assuming messages have createdAt
-                addItems(subscribersRes.data.subscribers, 'New Subscriber', 'fa-user-plus', 'email', 'createdAt');
-
-                // Sort by date newest first
-                activities.sort((a, b) => b.date - a.date);
-
-                setRecentActivity(activities.slice(0, 5)); // Keep top 5
+                    setServiceStats(data.serviceStats || []);
+                }
 
             } catch (error) {
                 console.error("Error fetching dashboard stats:", error);

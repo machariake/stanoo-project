@@ -4,6 +4,7 @@ import axios from 'axios';
 import SEO from '../common/SEO';
 import PageHeader from '../common/PageHeader';
 import config from '../../config';
+import Newsletter from '../common/Newsletter';
 import './Resources.css';
 
 const Resources = () => {
@@ -103,10 +104,7 @@ const Resources = () => {
                     <div className="newsletter-box glass-panel text-center mt-5 p-5">
                         <h2 className="gradient-text">Stay Updated</h2>
                         <p>Subscribe to our newsletter to receive the latest safety guides directly in your inbox.</p>
-                        <form className="newsletter-form">
-                            <input type="email" placeholder="Enter your email address" required />
-                            <button type="submit" className="btn btn-primary">Subscribe</button>
-                        </form>
+                        <Newsletter />
                     </div>
                 </div>
             </section>

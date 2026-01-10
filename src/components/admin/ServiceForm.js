@@ -104,19 +104,45 @@ const ServiceForm = () => {
                 />
 
                 <div className="form-group">
-                    <label>Icon Class (FontAwesome)</label>
-                    <input
-                        type="text"
-                        name="icon"
-                        value={formData.icon}
-                        onChange={handleChange}
-                        className="form-control"
-                        placeholder="e.g., fas fa-shield-alt"
-                        required
-                    />
-                    <small>Find icons at <a href="https://fontawesome.com/v5/search?m=free" target="_blank" rel="noreferrer">FontAwesome</a></small>
-                    <div style={{ marginTop: '10px' }}>
-                        Preview: <i className={formData.icon} style={{ fontSize: '24px', color: '#2d5f3f' }}></i>
+                    <label>Service Icon</label>
+                    <div className="icon-selector" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <select
+                            name="icon"
+                            value={formData.icon}
+                            onChange={handleChange}
+                            className="form-control"
+                            style={{ flex: 1 }}
+                        >
+                            <option value="fas fa-check">Default (Check)</option>
+                            <option value="fas fa-hard-hat">Hard Hat (Safety)</option>
+                            <option value="fas fa-fire-extinguisher">Fire Extinguisher</option>
+                            <option value="fas fa-first-aid">First Aid Kit</option>
+                            <option value="fas fa-heartbeat">Health / Heartbeat</option>
+                            <option value="fas fa-user-shield">Personal Protection</option>
+                            <option value="fas fa-clipboard-check">Audit / Inspection</option>
+                            <option value="fas fa-leaf">Environment / Nature</option>
+                            <option value="fas fa-chalkboard-teacher">Training / Education</option>
+                            <option value="fas fa-biohazard">Biohazard</option>
+                            <option value="fas fa-exclamation-triangle">Risk / Warning</option>
+                            <option value="fas fa-search">Investigation / Search</option>
+                            <option value="fas fa-certificate">Certification</option>
+                            <option value="fas fa-balance-scale">Legal / Compliance</option>
+                            <option value="fas fa-building">Building / Construction</option>
+                            <option value="fas fa-road">Road Safety</option>
+                            <option value="fas fa-shield-alt">Shield (General Safe)</option>
+                        </select>
+                        <div className="icon-preview" style={{
+                            fontSize: '24px',
+                            color: '#2d5f3f',
+                            width: '40px',
+                            textAlign: 'center',
+                            border: '1px solid #ddd',
+                            padding: '5px',
+                            borderRadius: '4px',
+                            backgroundColor: '#f8f9fa'
+                        }}>
+                            <i className={formData.icon}></i>
+                        </div>
                     </div>
                 </div>
 

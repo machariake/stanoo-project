@@ -12,6 +12,10 @@ const ProjectForm = () => {
         category: '',
         description: '',
         imageUrl: '',
+        beforeImage: '',
+        afterImage: '',
+        testimonial: '',
+        testimonialAuthor: '',
         results: [''] // Array for key results
     });
     const [loading, setLoading] = useState(false);
@@ -137,8 +141,48 @@ const ProjectForm = () => {
                 <ImageUpload
                     currentImage={formData.imageUrl}
                     onImageUpload={handleImageUpload}
-                    label="Project Image"
+                    label="Main Project Image"
                 />
+
+                <div className="form-row" style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
+                    <div style={{ flex: 1 }}>
+                        <ImageUpload
+                            currentImage={formData.beforeImage}
+                            onImageUpload={(url) => setFormData(prev => ({ ...prev, beforeImage: url }))}
+                            label="Before Image (Optional)"
+                        />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                        <ImageUpload
+                            currentImage={formData.afterImage}
+                            onImageUpload={(url) => setFormData(prev => ({ ...prev, afterImage: url }))}
+                            label="After Image (Optional)"
+                        />
+                    </div>
+                </div>
+
+                <div className="form-group mt-3">
+                    <label>Client Testimonial (Optional)</label>
+                    <textarea
+                        name="testimonial"
+                        value={formData.testimonial || ''}
+                        onChange={handleChange}
+                        className="form-control"
+                        rows="3"
+                        placeholder="What did the client say?"
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Testimonial Author</label>
+                    <input
+                        type="text"
+                        name="testimonialAuthor"
+                        value={formData.testimonialAuthor || ''}
+                        onChange={handleChange}
+                        className="form-control"
+                        placeholder="e.g. John Doe, CEO"
+                    />
+                </div>
 
                 <div className="form-group">
                     <label>Description</label>

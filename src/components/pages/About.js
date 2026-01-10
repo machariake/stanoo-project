@@ -49,8 +49,8 @@ const About = () => {
   return (
     <div className="about fade-in">
       <SEO
-        title="About Us"
-        description="Learn about Theuri Green Health Safe, our mission, vision, values, and the expert team dedicated to your safety."
+        title={content.about?.seoTitle || "About Us"}
+        description={content.about?.seoDescription || "Learn about Theuri Green Health Safe..."}
       />
 
       <PageHeader
@@ -105,7 +105,7 @@ const About = () => {
 
                 <p>Over the years, we have built our reputation on delivering exceptional results, maintaining the highest professional standards, and fostering long-term partnerships with our clients. Our team of certified experts brings together decades of combined experience in various industries, from manufacturing and construction to healthcare and education.</p>
 
-                <p>Today, we serve clients across East Africa, helping organizations navigate complex regulatory requirements, implement effective safety programs, and achieve their sustainability goals. Our commitment to continuous improvement and innovation ensures that we remain at the forefront of industry best practices.</p>
+                <p>Today, we serve clients across East Africa, helping organizations navigate complex regulatory requirements, implement effective safety programs, and achieve their sustainability goals. My commitment to continuous improvement and innovation ensures that we remain at the forefront of industry best practices.</p>
 
                 <div className="story-highlights slide-up delay-200">
                   <div className="highlight glass-panel text-center">
@@ -125,10 +125,14 @@ const About = () => {
             </div>
             <div className="col-2">
               <div className="story-image slide-in-right delay-200">
-                <div className="story-image-placeholder glass-panel">
-                  <i className="fas fa-history icon-xl gradient-text"></i>
-                  <span>Our Journey</span>
-                </div>
+                {content.about?.storyImage ? (
+                  <img src={content.about.storyImage} alt="Our Story" className="img-fluid rounded shadow" style={{ borderRadius: '15px' }} />
+                ) : (
+                  <div className="story-image-placeholder glass-panel">
+                    <i className="fas fa-history icon-xl gradient-text"></i>
+                    <span>Our Journey</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>

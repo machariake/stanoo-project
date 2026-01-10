@@ -26,22 +26,14 @@ const ResourceForm = () => {
         if (isEditMode) {
             const fetchResource = async () => {
                 try {
-                    // Assuming we have a GET by ID endpoint, if not we might need to rely on list
-                    // For now, let's assume we can pass state or just fetch list and find
-                    // Since we didn't explicitly check for GET /:id in resources route, assume valid for now or just generic GET
-                    const response = await axios.get(`${config.API_URL}/resources/${id}`); // We did define GET / (all) and DELETE /:id
-                    // Wait, we didn't add GET /:id, so this might fail. 
-                    // Let's rely on navigating back if not robust store available? 
-                    // Actually, let's fix backend route for GET /:id or just skip pre-fill if too complex
-                    // Re-reading my previous replace_content... I only added GET / (all). 
-                    // I should fix the backend route to include GET /:id 
-                    // But for now let's implement the form.
+                    const response = await axios.get(`${config.API_URL}/resources/${id}`);
                     setFormData(response.data.resource);
                 } catch (error) {
                     console.error('Error fetching resource', error);
+                    showToast('Could not load resource details.', 'error');
                 }
             };
-            // fetchResource(); // Commented out until backend supports it
+            fetchResource();
         }
     }, [id, isEditMode]);
 
@@ -73,10 +65,7 @@ const ResourceForm = () => {
         if (!file) return null;
 
         const data = new FormData();
-        data.append('image', file); // API expects 'image' key even for docs based on our prev snippet check? 
-        // Wait, let's check update snippet. It uses upload.single('image'). 
-        // Yes, the key must be 'image' unless we change backend.
-
+        data.append('image', file);
         try {
             setUploading(true);
             const res = await axios.post(`${config.API_URL}/upload`, data, {
@@ -85,7 +74,7 @@ const ResourceForm = () => {
                 }
             });
             setUploading(false);
-            return res.data.imageUrl; // This returns the Signed URL
+            return res.data.imageUrl;
         } catch (error) {
             setUploading(false);
             console.error('Upload Error:', error);
@@ -114,8 +103,8 @@ const ResourceForm = () => {
             const payload = { ...formData, downloadUrl };
 
             if (isEditMode) {
-                // await axios.put(`${config.API_URL}/resources/${id}`, payload);
-                // showToast('Resource updated successfully', 'success');
+                await axios.put(`${config.API_URL}/resources/${id}`, payload);
+                showToast('Resource updated successfully', 'success');
             } else {
                 await axios.post(`${config.API_URL}/resources`, payload);
                 showToast('Resource created successfully', 'success');
@@ -128,6 +117,7 @@ const ResourceForm = () => {
             setLoading(false);
         }
     };
+
 
     return (
         <div className="admin-form-container fade-in">
