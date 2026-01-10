@@ -14,7 +14,22 @@ const SettingsManager = () => {
         twitterUrl: '',
         linkedinUrl: '',
         instagramUrl: '',
-        whatsappNumber: ''
+        whatsappNumber: '',
+        // Feature Toggles
+        enableTraining: true,
+        enableResources: true,
+        enableBlog: true,
+        enableTestimonials: true,
+        enableWhatsApp: true,
+        enableQuote: true,
+        // Tawk.to Integration
+        enableTawkTo: false,
+        tawkToPropertyId: '',
+        tawkToWidgetId: 'default',
+        // Seasonal
+        christmasMode: false,
+        christmasMusic: false,
+        christmasMusicUrl: ''
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);

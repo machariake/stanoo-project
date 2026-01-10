@@ -9,13 +9,25 @@ const DOC_ID = 'general';
 router.get('/', async (req, res) => {
     try {
         const doc = await db.collection(COLLECTION_NAME).doc(DOC_ID).get();
+        const defaultSettings = {
+            enableTraining: true,
+            enableResources: true,
+            enableBlog: true,
+            enableTestimonials: true,
+            enableWhatsApp: true,
+            enableQuote: true,
+            enableTawkTo: false,
+            tawkToWidgetId: 'default',
+            companyName: 'Theuri Green Health Safe'
+        };
+
         if (!doc.exists) {
-            // Return defaults if not found, or empty object
-            return res.json({ success: true, settings: {} });
+            return res.json({ success: true, settings: defaultSettings });
         }
+
         res.json({
             success: true,
-            settings: doc.data()
+            settings: { ...defaultSettings, ...doc.data() }
         });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
